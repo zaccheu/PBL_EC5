@@ -1,0 +1,7 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/DBML/PBL_EC5.dbmdl
+/DBML/PBL_EC5.jfm
+/.vs/PBL_EC5/v17
