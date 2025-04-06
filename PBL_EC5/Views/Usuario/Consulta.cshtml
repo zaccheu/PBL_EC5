@@ -1,0 +1,40 @@
+﻿@model List<UsuarioViewModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4 mb-4">Usuários</h1>
+    <br />
+
+
+    <div class="table-responsive m-2">
+        <table class="table text-center">
+            <thead class="head">
+                <tr>
+                    <th>Nome</th>
+                    <th>Data Nascimento</th>
+                    <th>Telefone</th>
+                </tr>
+            </thead>
+            @if (Model.Count > 0)
+            {
+                @foreach (var usuario in Model)
+                {
+                    <tr class="body">
+                        <td>@usuario.Nome</td>
+                        <td>@usuario.DataNascimento ? DataNascimento.ToShortDateString()</td>
+                        <td>@usuario.Telefone</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="body">
+                    <td colspan="5">Nenhum registro encontrado</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>

@@ -1,0 +1,101 @@
+﻿@model List<EstufaViewModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <style>
+        button {
+            padding: 7px 19px;
+            border: none;
+            background-color: #1b6ec2;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .mb-4 {
+            margin-bottom: 0px !important;
+        }
+
+        table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            table td, table th {
+                padding: 8px;
+                vertical-align: top !important;
+                display: table-cell !important;
+                text-align: center !important;
+            }
+
+            table tr:nth-child(even) {
+                background-color: #dbdbdb;
+            }
+
+            table tr {
+                border-bottom: 1px solid #ddd;
+            }
+
+                table tr:nth-child(even) {
+                    background-color: #dfdfdf !important;
+                }
+
+            table th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #1b6ec2;
+                color: white;
+            }
+    </style>
+    <h1 class="display-4 mb-4">Estufas</h1>
+    <br />
+    <div>
+        <button>
+            Limpar
+        </button>
+        <a href="@Url.Action("Cadastrar", "Estufa")" class="btn btn-success">Novo</a>
+    </div>
+
+    <div class="table-responsive m-2">
+        <table class="table text-center">
+            <thead class="head">
+                <tr>
+                    <th>Nome</th>
+                    <th>Localização</th>
+                    <th>Descrição</th>
+                    <th>Área (m²)</th>
+                    <th>Altura (m)</th>
+                    <th>Data Atualização</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            @if (Model.Count > 0)
+            {
+                @foreach (var estufa in Model)
+                {
+                    <tr class="body">
+                        <td>@estufa.Nome</td>
+                        <td>@estufa.Localizacao</td>
+                        <td>@estufa.Descricao</td>
+                        <td>@estufa.AreaEstufaM2</td>
+                        <td>@estufa.AlturaM</td>
+                        <td>@(estufa.DataAtualizacao.HasValue ? estufa.DataAtualizacao.Value.ToShortDateString() : "")</td>
+                        <td>
+                            <a href="@Url.Action("Editar", "Estufa", new { id = estufa.IdEstufa })" class="btn btn-primary">Editar</a>
+                            <a href="@Url.Action("Deletar", "Estufa", new { id = estufa.IdEstufa })" class="btn btn-danger">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr class="body">
+                    <td colspan="7">Nenhum registro encontrado</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
