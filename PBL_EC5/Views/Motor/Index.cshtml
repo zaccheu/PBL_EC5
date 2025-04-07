@@ -87,7 +87,7 @@
                         <td>@(motor.DataAtualizacao.HasValue ? motor.DataAtualizacao.Value.ToShortDateString() : "")</td>
                         <td>
                             <a href="@Url.Action("Editar", "Motor", new { id = motor.Id })" class="btn btn-primary">Editar</a>
-                            <a href="@Url.Action("Deletar", "Motor", new { id = motor.Id })" class="btn btn-danger">Excluir</a>
+                            <a href="@Url.Action("Excluir", "Motor", new { id = motor.Id })" class="btn btn-danger">Excluir</a>
                         </td>
                     </tr>
                 }

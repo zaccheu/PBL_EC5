@@ -85,7 +85,7 @@
                         <td>@(estufa.DataAtualizacao.HasValue ? estufa.DataAtualizacao.Value.ToShortDateString() : "")</td>
                         <td>
                             <a href="@Url.Action("Editar", "Estufa", new { id = estufa.IdEstufa })" class="btn btn-primary">Editar</a>
-                            <a href="@Url.Action("Deletar", "Estufa", new { id = estufa.IdEstufa })" class="btn btn-danger">Excluir</a>
+                            <a href="@Url.Action("Excluir", "Estufa", new { id = estufa.IdEstufa })" class="btn btn-danger">Excluir</a>
                         </td>
                     </tr>
                 }

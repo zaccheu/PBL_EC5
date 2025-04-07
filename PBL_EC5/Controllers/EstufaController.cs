@@ -40,9 +40,6 @@ namespace PBL_EC5.Controllers
 
         public IActionResult Salvar(EstufaViewModel estufa)
         {
-            if (!ModelState.IsValid)
-                return View(estufa);
-
             dao.Inserir(estufa);
             return RedirectToAction(nameof(Index));
         }

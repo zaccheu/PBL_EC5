@@ -16,14 +16,14 @@ namespace PBL_EC5.Controllers
             return View(lista);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Editar(int id)
         {
             MotorViewModel motor = dao.ObterPorId(id);
 
             if (motor == null)
                 return NotFound();
 
-            return View(motor);
+            return View("Cadastro", motor);
         }
 
         public IActionResult Cadastrar()
@@ -33,22 +33,18 @@ namespace PBL_EC5.Controllers
             return View("Cadastro", model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Salvar(MotorViewModel motor)
         {
-            if (!ModelState.IsValid)
-                return View(motor);
-
             dao.Inserir(motor);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Editar(int id)
+        public IActionResult EditarMotor(MotorViewModel motor)
         {
-            var motor = dao.ObterPorId(id);
-            if (motor == null)
+            if (motor != null)
                 return NotFound();
+
+            dao.Alterar(motor);
 
             return View(motor);
         }
@@ -79,7 +75,7 @@ namespace PBL_EC5.Controllers
                 return View("Error", new ErrorViewModel("Erro ao excluir o motor."));
             }
 
-            return View(motor);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

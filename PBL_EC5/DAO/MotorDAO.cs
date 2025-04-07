@@ -14,10 +14,10 @@ namespace PBL_EC5.Models.DAO
             {
                 new SqlParameter("@Id", motor.Id),
                 new SqlParameter("@IdEstufa", motor.IdEstufa),
-                new SqlParameter("@Nome", (object)motor.Nome ?? DBNull.Value),
-                new SqlParameter("@Tipo", (object)motor.Tipo ?? DBNull.Value),
+                new SqlParameter("@Nome", motor.Nome),
+                new SqlParameter("@Tipo", motor.Tipo),
                 new SqlParameter("@Status", motor.Status),
-                new SqlParameter("@Descricao", (object)motor.Descricao ?? DBNull.Value)
+                new SqlParameter("@Descricao", motor.Descricao)
             };
 
             return parametros;

@@ -10,13 +10,13 @@ namespace PBL_EC5.Models.DAO
     {
         private SqlParameter[] CriaParametros(EstufaViewModel estufa)
         {
-            SqlParameter[] parametros = new SqlParameter[8];
-            new SqlParameter("@IdEstufa", estufa.IdEstufa);
-            new SqlParameter("@Nome", (object)estufa.Nome ?? DBNull.Value);
-            new SqlParameter("@Localizacao", (object)estufa.Localizacao ?? DBNull.Value);
-            new SqlParameter("@Descricao", (object)estufa.Descricao ?? DBNull.Value);
-            new SqlParameter("@AreaEstufaM2", (object)estufa.AreaEstufaM2 ?? DBNull.Value);
-            new SqlParameter("@AlturaM", (object)estufa.AlturaM ?? DBNull.Value);
+            SqlParameter[] parametros = new SqlParameter[6];
+            parametros[0] = new SqlParameter("idEstufa", estufa.IdEstufa);
+            parametros[1] = new SqlParameter("nome", estufa.Nome);
+            parametros[2] = new SqlParameter("localizacao", estufa.Localizacao);
+            parametros[3] = new SqlParameter("descricao", estufa.Descricao);
+            parametros[4] = new SqlParameter("areaEstufaM2", estufa.AreaEstufaM2);
+            parametros[5] = new SqlParameter("alturaM", estufa.AlturaM);
 
             return parametros;
         }
@@ -25,11 +25,11 @@ namespace PBL_EC5.Models.DAO
         {
             string sql = @"
                 INSERT INTO Estufas
-                   (IdEstufa, Nome, Localizacao, Descricao, AreaEstufaM2, AlturaM, DataAtualizacao)
+                   (Nome, Localizacao, Descricao, AreaEstufaM2, AlturaM, DataAtualizacao)
                 VALUES
-                   (@IdEstufa, @Nome, @Localizacao, @Descricao, @AreaEstufaM2, @AlturaM, GETDATE());
+                   (@Nome, @Localizacao, @Descricao, @AreaEstufaM2, @AlturaM, GETDATE());
             ";
-
+            
             HelperDAO.ExecutaSQL(sql, CriaParametros(estufa));
         }
 
