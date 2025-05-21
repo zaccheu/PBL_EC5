@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PBL_EC5", "PBL_EC5.csproj", "{2511CC62-A315-441C-8755-F4B5BF09D7E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PBL_EC5", "PBL_EC5.csproj", "{2511CC62-A315-441C-8755-F4B5BF09D7E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DBML", "DBML", "{3D4C1592-FD10-4604-9C55-5BF18115B395}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database.PBL_EC5", "..\Database.PBL_EC5\Database.PBL_EC5.sqlproj", "{251DC2B5-4546-48EB-951E-1ED35BBCEDE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,18 @@ Global
 		{2511CC62-A315-441C-8755-F4B5BF09D7E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2511CC62-A315-441C-8755-F4B5BF09D7E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2511CC62-A315-441C-8755-F4B5BF09D7E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251DC2B5-4546-48EB-951E-1ED35BBCEDE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{251DC2B5-4546-48EB-951E-1ED35BBCEDE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251DC2B5-4546-48EB-951E-1ED35BBCEDE7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{251DC2B5-4546-48EB-951E-1ED35BBCEDE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{251DC2B5-4546-48EB-951E-1ED35BBCEDE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251DC2B5-4546-48EB-951E-1ED35BBCEDE7}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{251DC2B5-4546-48EB-951E-1ED35BBCEDE7} = {3D4C1592-FD10-4604-9C55-5BF18115B395}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD22D46D-FFF0-449D-BEE8-586A0A01FAE3}

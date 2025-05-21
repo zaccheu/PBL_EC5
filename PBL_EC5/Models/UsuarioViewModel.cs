@@ -2,7 +2,7 @@
 
 namespace PBL_EC5.Models
 {
-    public class UsuarioViewModel
+    public class UsuarioViewModel : PadraoViewModel
     {
         public int Id { get; set; }
         public string Nome { get; set; }

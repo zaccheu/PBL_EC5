@@ -1,4 +1,5 @@
-﻿CREATE TABLE Estufas (
+﻿CREATE TABLE [dbo].[Estufa]
+(
     IdEstufa INT PRIMARY KEY,
     Nome VARCHAR(100) NOT NULL,
     Localizacao VARCHAR(255),

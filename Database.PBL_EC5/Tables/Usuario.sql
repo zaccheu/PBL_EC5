@@ -1,4 +1,4 @@
-﻿CREATE TABLE Usuario (
+﻿CREATE TABLE [dbo].[Usuario](
     [Id]              INT           IDENTITY (1, 1) NOT NULL,
     [Nome]            VARCHAR (50)  NULL,
     [Telefone]        VARCHAR (20)  NULL,
@@ -9,4 +9,5 @@
     [SenhaHash]           VARCHAR (100) NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC)
 );
+
 

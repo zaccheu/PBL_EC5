@@ -1,14 +1,12 @@
-﻿using PBL_EC5.DAO;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace PBL_EC5.Models.DAO
 {
-    public class EstufaDAO
+    public class EstufaDAO : PadraoDAO<EstufaViewModel>
     {
-        private SqlParameter[] CriaParametros(EstufaViewModel estufa)
+        protected override SqlParameter[] CriaParametros(EstufaViewModel estufa)
         {
             SqlParameter[] parametros = new SqlParameter[6];
             parametros[0] = new SqlParameter("idEstufa", estufa.IdEstufa);
@@ -21,80 +19,38 @@ namespace PBL_EC5.Models.DAO
             return parametros;
         }
 
-        public void Inserir(EstufaViewModel estufa)
+        protected override EstufaViewModel MontaModel(DataRow registro)
         {
-            string sql = @"
-                INSERT INTO Estufas
-                   (Nome, Localizacao, Descricao, AreaEstufaM2, AlturaM, DataAtualizacao)
-                VALUES
-                   (@Nome, @Localizacao, @Descricao, @AreaEstufaM2, @AlturaM, GETDATE());
-            ";
-            
-            HelperDAO.ExecutaSQL(sql, CriaParametros(estufa));
+            EstufaViewModel a = new EstufaViewModel();
+            a.Id = Convert.ToInt32(registro["id"]);
+            a.IdEstufa = registro.Table.Columns.Contains("idEstufa") && registro["idEstufa"] != DBNull.Value
+                ? Convert.ToInt32(registro["idEstufa"])
+                : 0;
+            a.Nome = registro.Table.Columns.Contains("nome") && registro["nome"] != DBNull.Value
+                ? registro["nome"].ToString()
+                : string.Empty;
+            a.Localizacao = registro.Table.Columns.Contains("localizacao") && registro["localizacao"] != DBNull.Value
+                ? registro["localizacao"].ToString()
+                : string.Empty;
+            a.Descricao = registro.Table.Columns.Contains("descricao") && registro["descricao"] != DBNull.Value
+                ? registro["descricao"].ToString()
+                : string.Empty;
+            a.AreaEstufaM2 = registro.Table.Columns.Contains("areaEstufaM2") && registro["areaEstufaM2"] != DBNull.Value
+                ? Convert.ToSingle(registro["areaEstufaM2"])
+                : (float?)null;
+            a.AlturaM = registro.Table.Columns.Contains("alturaM") && registro["alturaM"] != DBNull.Value
+                ? Convert.ToSingle(registro["alturaM"])
+                : (float?)null;
+            a.DataAtualizacao = registro.Table.Columns.Contains("dataAtualizacao") && registro["dataAtualizacao"] != DBNull.Value
+                ? Convert.ToDateTime(registro["dataAtualizacao"])
+                : (DateTime?)null;
+
+            return a;
         }
 
-        public void Alterar(EstufaViewModel estufa)
+        protected override void SetTabela()
         {
-            string sql = @"
-                UPDATE Estufas
-                SET Nome = @Nome,
-                    Localizacao = @Localizacao,
-                    Descricao = @Descricao,
-                    AreaEstufaM2 = @AreaEstufaM2,
-                    AlturaM = @AlturaM,
-                    DataAtualizacao = GETDATE()
-                WHERE IdEstufa = @IdEstufa
-            ";
-
-            HelperDAO.ExecutaSQL(sql, CriaParametros(estufa));
-        }
-
-        public void Excluir(int idEstufa)
-        {
-            string sql = "DELETE FROM Estufas WHERE IdEstufa =" + idEstufa;
-            HelperDAO.ExecutaSQL(sql, null);
-        }
-
-        public List<EstufaViewModel> ListarEstufas()
-        {
-            List<EstufaViewModel> lista = new List<EstufaViewModel>();
-
-            string sql = "SELECT * FROM Estufas";
-
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
-
-            foreach (DataRow row in tabela.Rows)
-            {
-                lista.Add(MontaEstufa(row));
-            }
-
-            return lista;
-        }
-
-        public EstufaViewModel MontaEstufa(DataRow registro)
-        {
-            EstufaViewModel estufa = new EstufaViewModel();
-            estufa.IdEstufa = Convert.ToInt32(registro["IdEstufa"]);
-            estufa.Nome = registro["Nome"]?.ToString();
-            estufa.Localizacao = registro["Localizacao"]?.ToString();
-            estufa.Descricao = registro["Descricao"]?.ToString();
-            if (registro["AreaEstufaM2"] != DBNull.Value)
-                estufa.AreaEstufaM2 = Convert.ToSingle(registro["AreaEstufaM2"]);
-            if (registro["AlturaM"] != DBNull.Value)
-                estufa.AlturaM = Convert.ToSingle(registro["AlturaM"]);
-            if (registro["DataAtualizacao"] != DBNull.Value)
-                estufa.DataAtualizacao = Convert.ToDateTime(registro["DataAtualizacao"]);
-            return estufa;
-        }
-
-        public EstufaViewModel ConsultaPorId(int id)
-        {
-            string sql = "select * from acesso.Usuario where Id = " + id;
-            DataTable tabela = HelperDAO.ExecutaSelect(sql, null);
-            if (tabela.Rows.Count == 0)
-                return null;
-            else
-                return MontaEstufa(tabela.Rows[0]);
+            Tabela = "dbo.Estufas";
         }
     }
 }

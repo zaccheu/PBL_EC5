@@ -1,0 +1,10 @@
+C:\Users\Guzac\source\repos\PBL_EC5\Database.PBL_EC5\bin\Debug\Database.PBL_EC5.dacpac
+C:\Users\Guzac\source\repos\PBL_EC5\Database.PBL_EC5\bin\Debug\Database.PBL_EC5.dll
+C:\Users\Guzac\source\repos\PBL_EC5\Database.PBL_EC5\bin\Debug\Database.PBL_EC5.pdb
+C:\Users\Guzac\source\repos\PBL_EC5\Database.PBL_EC5\obj\Debug\Database.PBL_EC5.sqlproj.AssemblyReference.cache
+C:\Users\Guzac\source\repos\PBL_EC5\Database.PBL_EC5\obj\Debug\Model.xml
+C:\Users\Guzac\source\repos\PBL_EC5\Database.PBL_EC5\obj\Debug\refactor.xml
+C:\Users\Guzac\source\repos\PBL_EC5\Database.PBL_EC5\obj\Debug\postdeploy.sql
+C:\Users\Guzac\source\repos\PBL_EC5\Database.PBL_EC5\obj\Debug\predeploy.sql
+C:\Users\Guzac\source\repos\PBL_EC5\Database.PBL_EC5\obj\Debug\Database.PBL_EC5.dll
+C:\Users\Guzac\source\repos\PBL_EC5\Database.PBL_EC5\obj\Debug\Database.PBL_EC5.pdb

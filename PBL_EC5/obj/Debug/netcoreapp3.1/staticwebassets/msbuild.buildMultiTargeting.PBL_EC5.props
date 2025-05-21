@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\PBL_EC5.props" />
+</Project>

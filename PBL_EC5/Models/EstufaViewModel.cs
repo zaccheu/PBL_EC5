@@ -2,7 +2,7 @@
 
 namespace PBL_EC5.Models
 {
-    public class EstufaViewModel
+    public class EstufaViewModel : PadraoViewModel
     {
         public int IdEstufa { get; set; }
         public string Nome { get; set; }
