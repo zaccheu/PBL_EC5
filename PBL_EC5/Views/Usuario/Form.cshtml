@@ -69,33 +69,26 @@
         </div>
 
         <div class="form-group">
-            <label for="Telefone" class="control-label">Telefone</label>
-            <input type="text" Name="Telefone" value="@Model.Telefone" required />
-        </div>
-
-        <div class="form-group">
             <label for="Cpf" class="control-label">CPF</label>
-            <input type="text" Name="Cpf" value="@Model.Cpf" required />
-        </div>
-
-        <div class="form-group">
-            <label for="Cep" class="control-label">Cep</label>
-            <input type="text" Name="Cep" value="@Model.Cep" required />
-        </div>
-
-        <div class="form-group">
-            <label for="DataNascimento" class="control-label">Data Nascimento</label>
-            <input type="date"  Name="DataNascimento" value="@Model.DataNascimento" required />
+            <input type="text" Name="Cpf" value="@Model.Cpf" />
         </div>
 
         <div class="form-group">
             <label for="Email" class="control-label">Email</label>
-            <input type="text"  Name="Email" value="@Model.Email" required />
+            <input type="email" Name="Email" value="@Model.Email" required />
+        </div>
+
+        <div class="form-group">
+            <label for="Administrador" class="control-label">Administrador</label>
+            <select Name="Administrador" required>
+                <option value="0">Não</option>
+                <option value="1">Sim</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="SenhaHash" class="control-label">Senha</label>
-            <input type="password" " Name="SenhaHash" value="@Model.SenhaHash" required />
+            <input type="password" Name="SenhaHash" required />
         </div>
 
         <div class="d-flex justify-content-center align-items-center mt-5">

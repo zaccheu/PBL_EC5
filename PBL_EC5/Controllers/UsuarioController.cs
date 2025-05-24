@@ -5,7 +5,6 @@ namespace PBL_EC5.Controllers
 {
     public class UsuarioController : PadraoController<UsuarioViewModel>
     {
-
         public UsuarioController()
         {
             DAO = new UsuarioDAO();

@@ -2,6 +2,7 @@
 using PBL_EC5.Models;
 using PBL_EC5.Models.DAO;
 using System;
+using System.Collections.Generic;
 
 namespace PBL_EC5.Controllers
 {
@@ -16,7 +17,7 @@ namespace PBL_EC5.Controllers
         {
             try
             {
-                var lista = DAO.Listagem();
+                List<T> lista = DAO.Listagem();
                 return View(NomeViewIndex, lista);
             }
             catch (Exception erro)
@@ -31,7 +32,9 @@ namespace PBL_EC5.Controllers
             {
                 ViewBag.Operacao = "I";
                 T model = Activator.CreateInstance<T>();
+
                 PreencheDadosParaView("I", model);
+                
                 return View(NomeViewForm, model);
             }
             catch (Exception erro)
@@ -45,6 +48,7 @@ namespace PBL_EC5.Controllers
             if (GeraProximoId && Operacao == "I")
                 model.Id = DAO.ProximoId();
         }
+
         public virtual IActionResult Save(T model, string Operacao)
         {
             try
@@ -62,6 +66,7 @@ namespace PBL_EC5.Controllers
                         DAO.Insert(model);
                     else
                         DAO.Update(model);
+
                     return RedirecionaParaIndex(model);
                 }
             }

@@ -13,8 +13,8 @@
             <thead class="head">
                 <tr>
                     <th>Nome</th>
-                    <th>Data Nascimento</th>
-                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Admijnistrador</th>
                 </tr>
             </thead>
             @if (Model.Count > 0)
@@ -23,8 +23,8 @@
                 {
                     <tr class="body">
                         <td>@usuario.Nome</td>
-                        <td>@usuario.DataNascimento ? DataNascimento.ToShortDateString()</td>
-                        <td>@usuario.Telefone</td>
+                        <td>@usuario.Email</td>
+                        <td>@usuario.Administrador</td>
                     </tr>
                 }
             }

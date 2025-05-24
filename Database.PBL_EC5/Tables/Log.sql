@@ -1,0 +1,7 @@
+﻿CREATE TABLE [Log]
+(
+	[Id] INT NOT NULL PRIMARY KEY,
+	[Dados_Recebidos] VARCHAR(MAX) NOT NULL,
+	[Dados_Enviados] VARCHAR(MAX) NOT NULL,
+	[Data_Hora] DATETIME NOT NULL DEFAULT (GETDATE()),
+)

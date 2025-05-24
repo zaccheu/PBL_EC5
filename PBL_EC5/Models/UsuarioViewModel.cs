@@ -1,19 +1,26 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PBL_EC5.Models
 {
     public class UsuarioViewModel : PadraoViewModel
     {
-        public int Id { get; set; }
+        [Required]
+        [StringLength(50)]
         public string Nome { get; set; }
-        public string Telefone { get; set; }
+
+        [StringLength(15)]
         public string Cpf { get; set; }
-        public string Cep { get; set; }
-        public DateTime? DataNascimento { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [StringLength(50)]
         public string Email { get; set; }
 
-        // Campos de segurança (hash + salt)
+        [Required]
+        public TipoAdministrador Administrador { get; set; } // '0' ou '1' como char
+
         public byte[] Salt { get; set; }
+
         public byte[] SenhaHash { get; set; }
     }
 }

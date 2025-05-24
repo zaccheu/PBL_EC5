@@ -1,15 +1,12 @@
-﻿using System;
-
-namespace PBL_EC5.Models
+﻿namespace PBL_EC5.Models
 {
     public class EstufaViewModel : PadraoViewModel
     {
-        public int IdEstufa { get; set; }
-        public string Nome { get; set; }
-        public string Localizacao { get; set; }
-        public string Descricao { get; set; }
-        public float? AreaEstufaM2 { get; set; }
-        public float? AlturaM { get; set; }
-        public DateTime? DataAtualizacao { get; set; }
+        public int Id_Cliente { get; set; }
+        public string Numero_Serie { get; set; }
+        public string Marca { get; set; }
+        public double Potencia { get; set; }
+        public byte[] Foto { get; set; }
+        public int Tensao { get; set; }
     }
 }
