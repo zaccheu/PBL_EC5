@@ -9,13 +9,13 @@ namespace PBL_EC5.Models.DAO
         protected override SqlParameter[] CriaParametros(EstufaViewModel estufa)
         {
             SqlParameter[] parametros = new SqlParameter[7];
-            parametros[0] = new SqlParameter("Id", estufa.Id); // Chave primária
-            parametros[1] = new SqlParameter("Id_Cliente", estufa.Id_Cliente); // Relacionamento com Cliente
-            parametros[2] = new SqlParameter("Id_Estado", estufa.Id_Estado); // Relacionamento com Estado
-            parametros[3] = new SqlParameter("Numero_Serie", estufa.Numero_Serie); // Número de série
-            parametros[4] = new SqlParameter("Marca", estufa.Marca); // Marca
-            parametros[5] = new SqlParameter("Potencia", estufa.Potencia); // Potência
-            parametros[6] = new SqlParameter("Tensao", estufa.Tensao); // Tensão elétrica
+            parametros[0] = new SqlParameter("Id", estufa.Id);
+            parametros[1] = new SqlParameter("Id_Cliente", estufa.Id_Cliente);
+            parametros[2] = new SqlParameter("Id_Estado", estufa.Id_Estado);
+            parametros[3] = new SqlParameter("Numero_Serie", estufa.Numero_Serie);
+            parametros[4] = new SqlParameter("Marca", estufa.Marca);
+            parametros[5] = new SqlParameter("Potencia", estufa.Potencia);
+            parametros[6] = new SqlParameter("Tensao", estufa.Tensao);
 
             return parametros;
         }

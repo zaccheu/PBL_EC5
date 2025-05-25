@@ -63,12 +63,13 @@
         <table class="table text-center">
             <thead class="head">
                 <tr>
-                    <th>Nome</th>
-                    <th>Localização</th>
-                    <th>Descrição</th>
-                    <th>Área (m²)</th>
-                    <th>Altura (m)</th>
-                    <th>Data Atualização</th>
+                    <th>Id</th>
+                    <th>Cliente</th>
+                    <th>Estado</th>
+                    <th>Número de Série</th>
+                    <th>Marca</th>
+                    <th>Potência (W)</th>
+                    <th>Tensão (V)</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -77,15 +78,16 @@
                 @foreach (var estufa in Model)
                 {
                     <tr class="body">
-                        <td>@estufa.Nome</td>
-                        <td>@estufa.Localizacao</td>
-                        <td>@estufa.Descricao</td>
-                        <td>@estufa.AreaEstufaM2</td>
-                        <td>@estufa.AlturaM</td>
-                        <td>@(estufa.DataAtualizacao.HasValue ? estufa.DataAtualizacao.Value.ToShortDateString() : "")</td>
+                        <td>@estufa.Id</td>
+                        <td>@estufa.Id_Cliente</td>
+                        <td>@estufa.Id_Estado</td>
+                        <td>@estufa.Numero_Serie</td>
+                        <td>@estufa.Marca</td>
+                        <td>@estufa.Potencia</td>
+                        <td>@estufa.Tensao</td>
                         <td>
-                            <a href="@Url.Action("Editar", "Estufa", new { id = estufa.IdEstufa })" class="btn btn-primary">Editar</a>
-                            <a href="@Url.Action("Excluir", "Estufa", new { id = estufa.IdEstufa })" class="btn btn-danger">Excluir</a>
+                            <a href="@Url.Action("Editar", "Estufa", new { id = estufa.Id })" class="btn btn-primary">Editar</a>
+                            <a href="@Url.Action("Excluir", "Estufa", new { id = estufa.Id })" class="btn btn-danger">Excluir</a>
                         </td>
                     </tr>
                 }
@@ -93,7 +95,7 @@
             else
             {
                 <tr class="body">
-                    <td colspan="7">Nenhum registro encontrado</td>
+                    <td colspan="8">Nenhum registro encontrado</td>
                 </tr>
             }
         </table>

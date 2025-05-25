@@ -4,12 +4,11 @@
     @cpf NVARCHAR(20) = NULL,
     @email NVARCHAR(100),
     @administrador CHAR(1),
-    @salt VARBINARY(MAX) = NULL,
-    @senhahash VARBINARY(MAX) = NULL
+    @senha VARBINARY(MAX) = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO Usuario (id, nome, cpf, email, administrador, salt, senhahash)
-    VALUES (@id, @nome, @cpf, @email, @administrador, @salt, @senhahash);
+    INSERT INTO Usuario (id, nome, cpf, email, administrador, senha)
+    VALUES (@id, @nome, @cpf, @email, @administrador, @senha);
 END

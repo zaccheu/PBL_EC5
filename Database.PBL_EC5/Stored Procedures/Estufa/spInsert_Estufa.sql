@@ -10,6 +10,6 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    INSERT INTO Estufa (id, id_cliente, numero_serie, marca, potencia, foto, tensao)
-    VALUES (@id, @id_cliente, @numero_serie, @marca, @potencia, @foto, @tensao);
+    INSERT INTO Estufa (id, id_cliente, numero_serie, marca, potencia, tensao)
+    VALUES (@id, @id_cliente, @numero_serie, @marca, @potencia, @tensao);
 END

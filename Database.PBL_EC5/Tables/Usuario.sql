@@ -4,8 +4,7 @@
 	[Cpf] [varchar](15) NULL,
 	[Email] [varchar](50) NOT NULL,
 	[Administrador] char(1)  NOT NULL DEFAULT '0',
-	[Salt] [varbinary](64) NOT NULL,
-	[SenhaHash] [varbinary](64) NOT NULL,
+	[Senha] [varbinary](MAX) NOT NULL,
 	CONSTRAINT PK_Usuario PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY];
 GO
