@@ -1,0 +1,44 @@
+﻿body {
+    margin: 0;
+    /*height: 100vh;*/
+    display: flex;
+    justify-content: center; /* horizontal */
+    align-items: center; /* vertical */
+    background: linear-gradient(to bottom, #66FFCC, #0099CC);
+    font-family: sans-serif;
+}
+
+.formLogin {
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255, 0.3)
+}
+
+.btn_entrar {
+    background-color: rgb(25, 193, 159) !important;
+    color: white !important;
+    border: 1px solid #000 !important;
+    border-radius: 5px !important;
+    padding: 5px 50px;
+}
+
+    .btn_entrar:hover {
+        background-color: rgb(19, 145, 118) !important;
+    }
+
+.btn_cadastrar {
+    color: rgb(19, 145, 118) !important;
+    font-weight: bold;
+}
+
+    .btn_cadastrar:hover {
+        color: rgb(12, 88, 72) !important;
+    }
+
+.input_form {
+    border: 1px solid #000 !important;
+    border-radius: 5px !important;
+    padding: 8px;
+    font-size: 15px;
+}

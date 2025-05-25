@@ -62,7 +62,7 @@
     <Folder Include="Stored Procedures\Estufa" />
     <Folder Include="Stored Procedures\Cliente" />
     <Folder Include="Stored Procedures\Log" />
-    <Folder Include="Stored Procedures\Helper" />
+    <Folder Include="Stored Procedures\Comum" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Usuario.sql" />
@@ -71,15 +71,14 @@
     <Build Include="Tables\Estado.sql" />
     <Build Include="Tables\Log.sql" />
     <Build Include="Stored Procedures\Usuario\spUpdate_Usuario.sql" />
-    <Build Include="Stored Procedures\Usuario\spDelete_Usuario.sql" />
     <Build Include="Stored Procedures\Usuario\spInsert_Usuario.sql" />
     <Build Include="Stored Procedures\Estufa\spInsert_Estufa.sql" />
     <Build Include="Stored Procedures\Cliente\spUpdate_Usuario.sql" />
-    <Build Include="Stored Procedures\Cliente\spDelete_Cliente.sql" />
     <Build Include="Stored Procedures\Cliente\spInsert_Cliente.sql" />
     <Build Include="Stored Procedures\Estufa\spUpdate_Estufa.sql" />
-    <Build Include="Stored Procedures\Estufa\spDelete_Estufa.sql" />
     <Build Include="Stored Procedures\Log\spInsert_Log.sql" />
-    <Build Include="Stored Procedures\Helper\spListagem.sql" />
+    <Build Include="Stored Procedures\Comum\spListagem.sql" />
+    <Build Include="Stored Procedures\Comum\spDelete.sql" />
+    <Build Include="Stored Procedures\Comum\spConsulta.sql" />
   </ItemGroup>
 </Project>

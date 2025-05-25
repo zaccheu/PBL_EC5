@@ -3,33 +3,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/site.css" />
+
 <div class="text-center">
 
     <h2>Login</h2>
     <form class="form p-4" asp-controller="Usuario" asp-action="Login" method="post">
-        @if (!string.IsNullOrEmpty(ViewBag.UsuarioLogado))
-        {
-            <label class="control-label text-danger">@ViewBag.UsuarioLogado</label>
-        }
+        <div class="formLogin">
+            @if (!string.IsNullOrEmpty(ViewBag.UsuarioLogado))
+            {
+                <label class="control-label text-danger">@ViewBag.UsuarioLogado</label>
+            }
 
-        <div class="form-group">
-            <label for="Email" class="control-label">Email</label>
-            <input type="text" Name="Email" value="@Model.Email" required />
-        </div>
+            <div class="form-group">
+                <div>
+                    <label for="Email" class="control-label" style="font-weight:500">Email</label>
+                </div>
+                <div>
+                    <input class="input_form" type="text" Name="Email" value="@Model.Email" placeholder="pbl@gmail.com" required />
+                </div>
+            </div>
 
-        <div class="form-group">
-            <label for="SenhaHash" class="control-label">Senha</label>
-            <input type="password" Name="SenhaHash" value="@Model.SenhaHash" required />
-        </div>
+            <div class="form-group">
+                <div>
+                    <label for="SenhaHash" class="control-label" style="font-weight:500">Senha</label>
+                </div>
+                <div>
+                    <input class="input_form" type="password" Name="SenhaHash" value="@Model.SenhaHash" placeholder="••••••••" required />
+                </div>
+            </div>
 
-        <div class="d-flex justify-content-center align-items-center mt-5">
-            <a href="/Usuario/Index">Cancelar</a>
-            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input class="btn btn-primary" type="submit" value="Entrar" />
-        </div>
+            <div class="d-flex justify-content-center align-items-center mt-4">
+                <input class="btn_entrar btn btn-primary" type="submit" value="Entrar" />
+            </div>
 
-        <div class="d-flex justify-content-center align-items-center mt-2">
-            <a href="/Usuario/Cadastrar">Cadastrar</a>
+            <div class="d-flex justify-content-center align-items-center mt-3">
+                <a class="btn_cadastrar" href="/Usuario/Cadastrar">Cadastrar</a>
+            </div>
         </div>
     </form>
 </div>

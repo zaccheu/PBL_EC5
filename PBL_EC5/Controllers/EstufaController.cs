@@ -11,11 +11,11 @@ namespace PBL_EC5.Controllers
             GeraProximoId = true;
         }
 
-        protected override void ValidaDados(EstufaViewModel model, string operacao)
-        {
-            base.ValidaDados(model, operacao);
-            if (string.IsNullOrEmpty(model.Numero_Serie))
-                ModelState.AddModelError("Descricao", "Preencha o nome da pizza.");
-        }
+        //protected override void ValidaDados(EstufaViewModel model, string operacao)
+        //{
+        //    base.ValidaDados(model, operacao);
+        //    if (string.IsNullOrEmpty(model.Descricao))
+        //        ModelState.AddModelError("Descricao", "Preencha o nome da estufa.");
+        //}
     }
 }

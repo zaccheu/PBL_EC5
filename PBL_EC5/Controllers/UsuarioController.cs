@@ -1,4 +1,5 @@
-﻿using PBL_EC5.DAO;
+﻿using Microsoft.AspNetCore.Mvc;
+using PBL_EC5.DAO;
 using PBL_EC5.Models;
 
 namespace PBL_EC5.Controllers
@@ -9,6 +10,12 @@ namespace PBL_EC5.Controllers
         {
             DAO = new UsuarioDAO();
             GeraProximoId = true;
+        }
+
+        public IActionResult Cadastro()
+        {
+            var model = new UsuarioViewModel();
+            return View("Login", model);
         }
 
         protected override void ValidaDados(UsuarioViewModel model, string operacao)

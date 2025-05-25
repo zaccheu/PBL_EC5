@@ -62,13 +62,14 @@ namespace PBL_EC5.Models.DAO
         {
             var p = new SqlParameter[]
             {
-             new SqlParameter("Tabela", Tabela),
-             new SqlParameter("Ordem", "1")
+                new SqlParameter("Tabela", Tabela),
+                new SqlParameter("Ordem", "1")
             };
+
             var tabela = HelperDAO.ExecutaProcSelect(NomeSpListagem, p);
 
             if (tabela.Rows.Count == 0)
-                return new List<T>();List<T> lista = new List<T>();
+                return new List<T>(); List<T> lista = new List<T>();
 
             foreach (DataRow registro in tabela.Rows)
                 lista.Add(MontaModel(registro));
