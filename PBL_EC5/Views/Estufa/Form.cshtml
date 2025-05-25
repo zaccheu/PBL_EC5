@@ -52,45 +52,45 @@
     <h2>Cadastro de Estufa</h2>
     <form class="form p-4" action="Salvar" method="post">
         <div class="form-group">
-            <label for="IdEstufa" class="control-label">Id da Estufa</label>
-            @if (Model.IdEstufa == 0)
+            <label for="Id" class="control-label">Id</label>
+            @if (Model.Id == 0)
             {
-                <input type="text" Name="IdEstufa" value="" hidden disabled />
+                <input type="text" Name="Id" value="" hidden disabled />
             }
             else
             {
-                <input type="text" Name="IdEstufa" value="@Model.IdEstufa" hidden />
+                <input type="text" Name="Id" value="@Model.Id" hidden />
             }
         </div>
 
         <div class="form-group">
-            <label for="Nome" class="control-label">Nome</label>
-            <input type="text" Name="Nome" value="@Model.Nome" required />
+            <label for="Id_Cliente" class="control-label">Id do Cliente</label>
+            <input type="number" Name="Id_Cliente" value="@Model.Id_Cliente" required />
         </div>
 
         <div class="form-group">
-            <label for="Descricao" class="control-label">Descricao</label>
-            <input type="text" Name="Descricao" value="@Model.Descricao" required />
+            <label for="Id_Estado" class="control-label">Id do Estado</label>
+            <input type="number" Name="Id_Estado" value="@Model.Id_Estado" required />
         </div>
 
         <div class="form-group">
-            <label for="Localizacao" class="control-label">Localizacao</label>
-            <input type="text" Name="Localizacao" value="@Model.Localizacao" required />
+            <label for="Numero_Serie" class="control-label">Número de Série</label>
+            <input type="text" Name="Numero_Serie" value="@Model.Numero_Serie" required maxlength="255" />
         </div>
 
         <div class="form-group">
-            <label for="AlturaM" class="control-label">Altura (m)</label>
-            <input type="text" Name="AlturaM" value="@Model.AlturaM" required />
+            <label for="Marca" class="control-label">Marca</label>
+            <input type="text" Name="Marca" value="@Model.Marca" required maxlength="255" />
         </div>
 
         <div class="form-group">
-            <label for="AreaEstufaM2" class="control-label">Area Estufa</label>
-            <input type="text" Name="AreaEstufaM2" value="@Model.AreaEstufaM2" required />
+            <label for="Potencia" class="control-label">Potência (W)</label>
+            <input type="number" Name="Potencia" value="@Model.Potencia" required step="0.01" />
         </div>
 
         <div class="form-group">
-            <label for="DataAtualizacao" class="control-label">Data Atualizacao</label>
-            <input type="date" Name="DataAtualizacao" value="@Model.DataAtualizacao" hidden disabled />
+            <label for="Tensao" class="control-label">Tensão (V)</label>
+            <input type="number" Name="Tensao" value="@Model.Tensao" required />
         </div>
 
         <div class="d-flex justify-content-center align-items-center mt-5">
