@@ -4,33 +4,32 @@
 }
 
 <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
-<link rel="stylesheet" href="~/css/site.css" />
-
-<div class="text-center">
-
-    <h2>Login</h2>
-    <form class="form p-4" asp-controller="Usuario" asp-action="Login" method="post">
-        <div class="formLogin">
+<div>
+    <div class="mx-auto my-4 text-center">
+        <img class="logo" src="~/logo1.png" alt="Logo"/>
+    </div>
+    <form class="form px-4" asp-controller="Usuario" asp-action="Login" method="post">
+        <div class="formLogin paddingLogin mx-auto w-50">
             @if (!string.IsNullOrEmpty(ViewBag.UsuarioLogado))
             {
                 <label class="control-label text-danger">@ViewBag.UsuarioLogado</label>
             }
 
-            <div class="form-group">
+            <div class="form-group px-5">
                 <div>
-                    <label for="Email" class="control-label" style="font-weight:500">Email</label>
+                    <label for="Email" class="control-label" style="font-weight:600">Email</label>
                 </div>
                 <div>
                     <input class="input_form" type="text" Name="Email" value="@Model.Email" placeholder="pbl@gmail.com" required />
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group px-5">
                 <div>
-                    <label for="SenhaHash" class="control-label" style="font-weight:500">Senha</label>
+                    <label for="Senha" class="control-label" style="font-weight:600">Senha</label>
                 </div>
                 <div>
-                    <input class="input_form" type="password" Name="SenhaHash" value="@Model.SenhaHash" placeholder="••••••••" required />
+                    <input class="input_form" type="password" Name="Senha" value="@Model.Senha" placeholder="••••••••" required />
                 </div>
             </div>
 
@@ -38,8 +37,8 @@
                 <input class="btn_entrar btn btn-primary" type="submit" value="Entrar" />
             </div>
 
-            <div class="d-flex justify-content-center align-items-center mt-3">
-                <a class="btn_cadastrar" href="/Usuario/Cadastrar">Cadastrar</a>
+            <div class="d-flex justify-content-end align-items-center mt-2 px-2">
+                <a href="/Usuario/Cadastrar">Cadastrar</a>
             </div>
         </div>
     </form>

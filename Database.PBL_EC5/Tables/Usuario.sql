@@ -4,8 +4,9 @@
 	[Cpf] [varchar](15) NULL,
 	[Email] [varchar](50) NOT NULL,
 	[Administrador] char(1)  NOT NULL DEFAULT '0',
-	[Senha] [varbinary](MAX) NOT NULL,
-	CONSTRAINT PK_Usuario PRIMARY KEY CLUSTERED ([Id] ASC)
+	[Senha] VARCHAR(MAX) NOT NULL,
+	[Foto] VARBINARY(MAX) NULL, 
+    CONSTRAINT PK_Usuario PRIMARY KEY CLUSTERED ([Id] ASC)
 ) ON [PRIMARY];
 GO
 CREATE UNIQUE INDEX UQ_Usuario_Email ON [Usuario](Email);

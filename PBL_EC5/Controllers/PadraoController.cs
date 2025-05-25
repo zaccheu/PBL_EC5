@@ -26,7 +26,7 @@ namespace PBL_EC5.Controllers
             }
         }
 
-        public virtual IActionResult Create()
+        public virtual IActionResult Cadastrar()
         {
             try
             {
@@ -34,7 +34,6 @@ namespace PBL_EC5.Controllers
                 T model = Activator.CreateInstance<T>();
 
                 PreencheDadosParaView("I", model);
-                
                 return View(NomeViewForm, model);
             }
             catch (Exception erro)
@@ -49,7 +48,7 @@ namespace PBL_EC5.Controllers
                 model.Id = DAO.ProximoId();
         }
 
-        public virtual IActionResult Save(T model, string Operacao)
+        public virtual IActionResult Salvar(T model, string Operacao)
         {
             try
             {
@@ -87,7 +86,7 @@ namespace PBL_EC5.Controllers
                 ModelState.AddModelError("Id", "Id inválido!");
         }
 
-        public IActionResult Edit(int id)
+        public IActionResult Editar(int id)
         {
             try
             {
@@ -112,7 +111,7 @@ namespace PBL_EC5.Controllers
             return RedirectToAction(NomeViewIndex);
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Deletar(int id)
         {
             try
             {

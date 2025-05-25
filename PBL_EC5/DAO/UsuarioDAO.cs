@@ -3,6 +3,7 @@ using PBL_EC5.Models.DAO;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection;
 
 namespace PBL_EC5.DAO
 {
@@ -16,8 +17,8 @@ namespace PBL_EC5.DAO
             parametros[2] = new SqlParameter("cpf", usuario.Cpf as object ?? DBNull.Value);
             parametros[3] = new SqlParameter("email", usuario.Email);
             parametros[4] = new SqlParameter("administrador", (char)usuario.Administrador); // converte enum para char
-            parametros[5] = new SqlParameter("salt", usuario.Salt as object ?? DBNull.Value);
-            parametros[6] = new SqlParameter("senhahash", usuario.SenhaHash as object ?? DBNull.Value);
+            parametros[5] = new SqlParameter("senha", usuario.Senha);
+            parametros[6] = new SqlParameter("foto", usuario.Foto as object ?? DBNull.Value);
             return parametros;
         }
 
@@ -28,15 +29,13 @@ namespace PBL_EC5.DAO
             usuario.Nome = registro["Nome"].ToString();
             usuario.Cpf = registro["Cpf"]?.ToString();
             usuario.Email = registro["Email"]?.ToString();
+            usuario.Senha = registro["Senha"]?.ToString();
 
             if (registro["Administrador"] != DBNull.Value)
                 usuario.Administrador = (TipoAdministrador)Convert.ToChar(registro["Administrador"]);
 
-            if (registro["Salt"] != DBNull.Value)
-                usuario.Salt = (byte[])registro["Salt"];
-
-            if (registro["SenhaHash"] != DBNull.Value)
-                usuario.SenhaHash = (byte[])registro["SenhaHash"];
+            if (registro["Foto"] != DBNull.Value)
+                usuario.Foto = (byte[])registro["Foto"];
 
             return usuario;
         }
@@ -44,6 +43,7 @@ namespace PBL_EC5.DAO
         protected override void SetTabela()
         {
             Tabela = "Usuario";
+            ChaveIdentity = true;
         }
     }
 }

@@ -12,7 +12,8 @@
     <header>
         @{
             var exibirNavbar = !(ViewContext.RouteData.Values["controller"]?.ToString() == "Usuario"
-            && ViewContext.RouteData.Values["action"]?.ToString() == "Cadastro");
+            && (ViewContext.RouteData.Values["action"]?.ToString() == "Login"
+            || ViewContext.RouteData.Values["action"]?.ToString() == "Cadastrar"));
         }
         @if (exibirNavbar)
         {

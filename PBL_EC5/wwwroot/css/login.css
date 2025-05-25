@@ -1,4 +1,7 @@
-﻿body {
+﻿/*LOGIN - TELA INICIAL*/
+/*LOGIN - CADASTRO*/
+/*GERAL*/
+body {
     margin: 0;
     /*height: 100vh;*/
     display: flex;
@@ -8,14 +11,27 @@
     font-family: sans-serif;
 }
 
-.formLogin {
-    border: 1px solid #000;
-    border-radius: 8px;
-    padding: 20px;
-    background-color: rgb(255, 255, 255, 0.3)
+.logo{
+    background-color: rgb(255, 255, 255);
+    width: 140px;
+    border-radius: 100%;
+    padding: 10px;
 }
 
-.btn_entrar {
+.formLogin {
+    border: 2px solid #000;
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255, 0.4);
+}
+.paddingLogin{
+    padding: 30px 15px 5px 15px;
+}
+
+.paddingCadastro{
+    padding: 20px 50px 5px 50px;
+}
+
+.btn_entrar, .btn_cadastrar {
     background-color: rgb(25, 193, 159) !important;
     color: white !important;
     border: 1px solid #000 !important;
@@ -23,22 +39,31 @@
     padding: 5px 50px;
 }
 
-    .btn_entrar:hover {
+    .btn_entrar:hover, .btn_cadastrar:hover{
         background-color: rgb(19, 145, 118) !important;
-    }
-
-.btn_cadastrar {
-    color: rgb(19, 145, 118) !important;
-    font-weight: bold;
-}
-
-    .btn_cadastrar:hover {
-        color: rgb(12, 88, 72) !important;
     }
 
 .input_form {
     border: 1px solid #000 !important;
     border-radius: 5px !important;
-    padding: 8px;
+    padding: 7px 15px;
     font-size: 15px;
+    width:100%;
+}
+
+a {
+    color: rgb(19, 145, 118) !important;
+    font-weight: bold;
+}
+
+    a:hover {
+        color: rgb(12, 88, 72) !important;
+    }
+
+.pic_placeholder {
+    width: 200px;
+    border-radius: 50%;
+    border: 2px solid #66FFCC;
+    object-fit: cover; /* Caso carregue uma imagem, ela cobre o espaço */
+    cursor: pointer; /* Indica que pode ser clicado (para upload) */
 }

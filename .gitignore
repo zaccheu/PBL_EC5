@@ -17,3 +17,6 @@
 /PBL_EC5/obj/Debug/netcoreapp3.1/PBL_EC5.assets.cache
 /PBL_EC5/obj/Debug/netcoreapp3.1/PBL_EC5.csproj.AssemblyReference.cache
 /PBL_EC5/obj/Debug/netcoreapp3.1/PBL_EC5.GeneratedMSBuildEditorConfig.editorconfig
+/PBL_EC5/bin/
+/PBL_EC5/obj/
+/PBL_EC5/obj/project.nuget.cache

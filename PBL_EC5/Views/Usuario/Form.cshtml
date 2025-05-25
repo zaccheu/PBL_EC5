@@ -2,99 +2,110 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
-    .form {
-        border: 1px solid #00a1a1;
-        border-radius: 15px;
-    }
 
-    .form-group {
-        display: flex;
-        justify-content: space-between; /* labels à esquerda e inputs à direita */
-        align-items: center;
-        margin-bottom: 12px; /* espaçamento vertical entre grupos */
-    }
-
-        .form-group label {
-            width: 35%; /* largura das labels */
-            font-weight: bold;
-            padding-right: 10px; /* espaço à direita para separar visualmente */
-            text-align: right; /* alinha labels à direita para estética */
-        }
-
-        .form-group input {
-            width: 65%; /* largura dos inputs */
-            padding: 6px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-    .btn-submit {
-        width: 100px;
-        margin-left: auto; /* botão alinhado à direita */
-        padding: 8px;
-        border: none;
-        border-radius: 5px;
-        background-color: #00a1a1;
-        color: white;
-        cursor: pointer;
-    }
-
-        .btn-submit:hover {
-            background-color: #008181;
-        }
-
-</style>
-
+<link rel="stylesheet" href="~/css/login.css" />
 <div class="text-start">
+    <form class="form p-4" action="Salvar" method="post" enctype="multipart/form-data" >
+        <input type="hidden" name="Operacao" value="@ViewBag.Operacao" />
 
-    <h2>Cadastro de Usuário</h2>
-    <form class="form p-4" action="Salvar" method="post">
-        <div class="form-group">
-            <label for="Id" class="control-label">Id</label>
-            @if (Model.Id == 0)
-            {
-                <input type="text" Name="Id" value="" hidden disabled />
-            }
-            else
-            {
-                <input type="text" Name="Id" value="@Model.Id" hidden />
-            }
-        </div>
+        <h2 class="text-center">Cadastro de Usuário</h2>
+        <div class="formLogin paddingCadastro mx-auto w-75">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="Id" class="control-label" hidden>Id</label>
+                        @if (Model.Id == 0)
+                        {
+                            <input type="text" Name="Id" value="" hidden disabled />
+                        }
+                        else
+                        {
+                            <input type="text" Name="Id" value="@Model.Id" hidden />
+                        }
+                    </div>
 
-        <div class="form-group">
-            <label for="Nome" class="control-label">Nome</label>
-            <input type="text" Name="Nome" value="@Model.Nome" required />
-        </div>
+                    <div class="form-group">
+                        <label for="Nome" class="control-label" style="font-weight:600">Nome</label>
+                        <input class="input_form form-control" type="text" Name="Nome" value="@Model.Nome" placeholder="adm" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Cpf" class="control-label" style="font-weight:600">CPF</label>
+                        <input class="input_form form-control" type="text" Name="Cpf" value="@Model.Cpf" placeholder="123.456.789-00" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Email" class="control-label" style="font-weight:600">Email</label>
+                        <input class="input_form form-control" type="email" Name="Email" value="@Model.Email" placeholder="pbl@gmail.com" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="Senha" class="control-label" style="font-weight:600">Senha</label>
+                        <input class="input_form form-control" type="password" Name="Senha" value="@Model.Senha" placeholder="••••••••" required />
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label for="Cpf" class="control-label">CPF</label>
-            <input type="text" Name="Cpf" value="@Model.Cpf" />
-        </div>
+                <div class="col-md-4 d-flex flex-column align-items-center justify-content-center pt-4">
+                    <img src="~/userGeneric.png" alt="Foto de Perfil" id="imgPreview" class="pic_placeholder mb-3" />
+                    <div class="text-center">
+                        <input type="file" Name="FotoUpload" value="@Model.FotoUpload" id="FotoUpload" accept="image/*" hidden />
+                        <span id="fotoError" class="text-danger d-block mt-2"></span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-            <label for="Email" class="control-label">Email</label>
-            <input type="email" Name="Email" value="@Model.Email" required />
-        </div>
-
-        <div class="form-group">
-            <label for="Administrador" class="control-label">Administrador</label>
-            <select Name="Administrador" required>
-                <option value="0">Não</option>
-                <option value="1">Sim</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="SenhaHash" class="control-label">Senha</label>
-            <input type="password" Name="SenhaHash" required />
-        </div>
-
-        <div class="d-flex justify-content-center align-items-center mt-5">
-            <a href="/Usuario/Index">Cancelar</a>
-            <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input class="btn btn-success" type="submit" value="Salvar" />
+            </div> <div class="d-flex justify-content-center align-items-center mt-4 mb-3">
+                <a href="/Usuario/Login">Cancelar</a>
+                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input class="btn_cadastrar btn btn-success" type="submit" value="Cadastrar" />
+            </div>
         </div>
     </form>
 </div>
+
+<script>
+    // Clicar na imagem abre o seletor de arquivo
+    document.getElementById('imgPreview').addEventListener('click', function() {
+        document.getElementById('FotoUpload').click();
+    });
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+        const fotoInput = document.getElementById('FotoUpload');
+        const imgPreview = document.getElementById('imgPreview');
+        const fotoError = document.getElementById('fotoError');
+
+        // Lista de extensões e tipos MIME de imagem permitidos
+        const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp'];
+        const allowedExtensions = /\.(jpg|jpeg|png|gif|bmp|webp)$/i; // 'i' para case-insensitive
+
+        // Função para limpar o input e o preview
+        function clearInputAndPreview() {
+            fotoInput.value = ''; // Limpa o valor do input
+            imgPreview.src = '/userGeneric.png'; // Volta para o placeholder
+        }
+
+        // Adiciona o evento 'change' ao input
+        fotoInput.addEventListener('change', function(event) {
+            // Limpa erros anteriores
+            fotoError.textContent = '';
+
+            const file = event.target.files[0]; // Pega o arquivo selecionado
+            const maxSizeInBytes = 5 * 1024 * 1024; // 5 MB - máximo permitido
+
+            if (!file) {
+                clearInputAndPreview();
+                return; // Nenhum arquivo selecionado
+            }
+            // --- Validação 1: Tipo MIME ---
+            if (!allowedMimeTypes.includes(file.type) || !allowedExtensions.test(file.name) || file.size > maxSizeInBytes) {
+                fotoError.textContent = 'Arquivo não permitido.';
+                clearInputAndPreview();
+                return;
+            }
+
+            // --- Se passou em todas as validações, mostra o preview ---
+            const reader = new FileReader();
+            reader.onload = function(){
+                imgPreview.src = reader.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+</script>

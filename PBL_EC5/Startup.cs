@@ -45,7 +45,7 @@ namespace PBL_EC5
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Usuario}/{action=Cadastro}/{id?}");
+                    pattern: "{controller=Usuario}/{action=Login}/{id?}");
             });
         }
     }
