@@ -1,8 +1,7 @@
-﻿@model List<MotorViewModel>
+﻿@model List<ClienteViewModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="text-center">
     <style>
         button {
@@ -50,44 +49,45 @@
                 color: white;
             }
     </style>
-    <h1 class="display-4 mb-4">Motores</h1>
+    <h1 class="display-4 mb-4">Clientes</h1>
     <br />
     <div>
         <button>
             Limpar
         </button>
-        <a href="@Url.Action("Cadastrar", "Motor")" class="btn btn-success">Novo</a>
-
+        <a href="@Url.Action("Cadastrar", "Cliente")" class="btn btn-success">Novo</a>
     </div>
     <div class="table-responsive m-2">
         <table class="table text-center">
             <thead class="head">
                 <tr>
                     <th>Id</th>
-                    <th>Id Estufa</th>
-                    <th>Nome</th>
-                    <th>Tipo</th>
-                    <th>Status</th>
-                    <th>Descrição</th>
-                    <th>Data Atualização</th>
+                    <th>Usuário</th>
+                    <th>Razão Social</th>
+                    <th>CNPJ</th>
+                    <th>CEP</th>
+                    <th>Rua</th>
+                    <th>Número</th>
+                    <th>Ativo</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             @if (Model.Count > 0)
             {
-                @foreach (var motor in Model)
+                @foreach (var cliente in Model)
                 {
                     <tr class="body">
-                        <td>@motor.Id</td>
-                        <td>@motor.IdEstufa</td>
-                        <td>@motor.Nome</td>
-                        <td>@motor.Tipo</td>
-                        <td>@motor.Status</td>
-                        <td>@motor.Descricao</td>
-                        <td>@(motor.DataAtualizacao.HasValue ? motor.DataAtualizacao.Value.ToShortDateString() : "")</td>
+                        <td>@cliente.Id</td>
+                        <td>@cliente.Id_Usuario</td>
+                        <td>@cliente.Razao_Social</td>
+                        <td>@cliente.CNPJ</td>
+                        <td>@cliente.CEP</td>
+                        <td>@cliente.Rua</td>
+                        <td>@cliente.Numero</td>
+                        <td>@(cliente.Ativo == '1' ? "Sim" : "Não")</td>
                         <td>
-                            <a href="@Url.Action("Editar", "Motor", new { id = motor.Id })" class="btn btn-primary">Editar</a>
-                            <a href="@Url.Action("Excluir", "Motor", new { id = motor.Id })" class="btn btn-danger">Excluir</a>
+                            <a href="@Url.Action("Editar", "Cliente", new { id = cliente.Id })" class="btn btn-primary">Editar</a>
+                            <a href="@Url.Action("Excluir", "Cliente", new { id = cliente.Id })" class="btn btn-danger">Excluir</a>
                         </td>
                     </tr>
                 }
@@ -95,7 +95,7 @@
             else
             {
                 <tr class="body">
-                    <td colspan="8">Nenhum registro encontrado</td>
+                    <td colspan="9">Nenhum registro encontrado</td>
                 </tr>
             }
         </table>

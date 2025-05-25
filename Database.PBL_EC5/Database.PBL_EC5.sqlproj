@@ -62,6 +62,7 @@
     <Folder Include="Stored Procedures\Estufa" />
     <Folder Include="Stored Procedures\Cliente" />
     <Folder Include="Stored Procedures\Log" />
+    <Folder Include="Stored Procedures\Helper" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Usuario.sql" />
@@ -79,5 +80,6 @@
     <Build Include="Stored Procedures\Estufa\spUpdate_Estufa.sql" />
     <Build Include="Stored Procedures\Estufa\spDelete_Estufa.sql" />
     <Build Include="Stored Procedures\Log\spInsert_Log.sql" />
+    <Build Include="Stored Procedures\Helper\spListagem.sql" />
   </ItemGroup>
 </Project>

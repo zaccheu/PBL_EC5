@@ -5,7 +5,6 @@
     Numero_Serie VARCHAR(255) NOT NULL, -- Número de série da estufa
     Marca VARCHAR(255) NOT NULL, -- Marca da estufa
     Potencia FLOAT NOT NULL, -- Potência da estufa
-    Foto VARBINARY(MAX) NULL, -- Foto da estufa (opcional)
     Tensao INT NOT NULL, -- Tensão elétrica da estufa
 
 
