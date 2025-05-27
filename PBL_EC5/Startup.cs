@@ -26,6 +26,8 @@ namespace PBL_EC5
                 options.Cookie.IsEssential = true; 
                 options.IdleTimeout = TimeSpan.FromSeconds(3600);
             });
+
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +56,7 @@ namespace PBL_EC5
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Usuario}/{action=Login}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

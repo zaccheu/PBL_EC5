@@ -10,10 +10,6 @@
     </div>
     <form class="form px-4" asp-controller="Usuario" asp-action="Entrar" method="post">
         <div class="formLogin paddingLogin mx-auto w-50">
-            @if (!string.IsNullOrEmpty(ViewBag.UsuarioLogado))
-            {
-                <label class="control-label text-danger">@ViewBag.UsuarioLogado</label>
-            }
             @if (!string.IsNullOrEmpty(ViewBag.Erro))
             {
                 <div class="divErro">

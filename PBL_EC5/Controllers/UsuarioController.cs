@@ -29,6 +29,7 @@ namespace PBL_EC5.Controllers
         public override IActionResult Cadastrar()
         {
             ViewBag.EsconderNavbar = true;
+            ViewBag.CadInicial = true; 
             return base.Cadastrar();
         }
 
@@ -61,6 +62,7 @@ namespace PBL_EC5.Controllers
         public void ArmazenaDadosSession(UsuarioViewModel model)
         {
             HttpContext.Session.SetString("Logado", "true");
+            HttpContext.Session.SetString("Id", model.Id.ToString());
             HttpContext.Session.SetString("Nome", model.Nome);
             HttpContext.Session.SetString("Email", model.Email);
             HttpContext.Session.SetString("Cpf", model.Cpf);
@@ -110,6 +112,12 @@ namespace PBL_EC5.Controllers
                     model.Foto = ConvertImageToByte(model.FotoUpload);
                 }
             }
+        }
+
+        public IActionResult LogOff()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login");
         }
     }
 }

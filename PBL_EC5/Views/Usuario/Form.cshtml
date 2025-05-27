@@ -44,7 +44,9 @@
                 </div>
 
                 <div class="col-md-4 d-flex flex-column align-items-center justify-content-center pt-4">
-                    <img src="~/userGeneric.png" alt="Foto de Perfil" id="imgPreview" class="pic_placeholder mb-3" />
+                    <img src="@(string.IsNullOrEmpty(Model.FotoBase64) ? Url.Content("~/userGeneric.png") : $"data:image/png;base64,{Model.FotoBase64}")"
+                         alt="Foto de Perfil" id="imgPreview" class="pic_placeholder mb-3" />
+
                     <div class="text-center">
                         <input type="file" Name="FotoUpload" value="@Model.FotoUpload" id="FotoUpload" accept="image/*" hidden />
                         <span id="fotoError" class="text-danger d-block mt-2"></span>
@@ -54,7 +56,7 @@
             </div> <div class="d-flex justify-content-center align-items-center mt-4 mb-3">
                 <a href="/Usuario/Login">Cancelar</a>
                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input class="btn_cadastrar btn btn-success" type="submit" value="Cadastrar" />
+                <input class="btn_cadastrar btn btn-success" type="submit" value="Salvar" />
             </div>
         </div>
     </form>

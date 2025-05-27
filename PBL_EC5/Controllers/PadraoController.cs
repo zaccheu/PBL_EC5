@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using PBL_EC5.Models;
 using PBL_EC5.Models.DAO;
 using System;
@@ -17,6 +18,11 @@ namespace PBL_EC5.Controllers
         {
             try
             {
+                if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
+                    return RedirectToAction("Login", "Usuario");
+                else
+                    ViewBag.Logado = true;
+
                 List<T> lista = DAO.Listagem();
                 return View(NomeViewIndex, lista);
             }
@@ -30,6 +36,14 @@ namespace PBL_EC5.Controllers
         {
             try
             {
+                if (!ViewBag.CadInicial)
+                {
+                    if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
+                        return RedirectToAction("Login", "Usuario");
+                    else
+                        ViewBag.Logado = true;
+                }
+
                 ViewBag.Operacao = "I";
                 T model = Activator.CreateInstance<T>();
 
@@ -52,6 +66,11 @@ namespace PBL_EC5.Controllers
         {
             try
             {
+                if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
+                    return RedirectToAction("Login", "Usuario");
+                else
+                    ViewBag.Logado = true;
+
                 ValidaDados(model, Operacao);
                 if (ModelState.IsValid == false)
                 {
@@ -97,6 +116,11 @@ namespace PBL_EC5.Controllers
         {
             try
             {
+                if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
+                    return RedirectToAction("Login", "Usuario");
+                else
+                    ViewBag.Logado = true;
+
                 ViewBag.Operacao = "A";
                 var model = DAO.Consulta(id);
                 if (model == null)
@@ -122,6 +146,11 @@ namespace PBL_EC5.Controllers
         {
             try
             {
+                if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
+                    return RedirectToAction("Login", "Usuario");
+                else
+                    ViewBag.Logado = true;
+
                 var model = DAO.Consulta(id);
                 if (model != null)
                     DAO.Delete(id);

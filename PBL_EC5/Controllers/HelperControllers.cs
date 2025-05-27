@@ -30,6 +30,7 @@ namespace PBL_EC5.Controllers
         {
             UsuarioViewModel usuario = new UsuarioViewModel();
 
+            usuario.Id = int.TryParse(session.GetString("Id"), out int id) ? id : 0;
             usuario.Nome = session.GetString("Nome");
             usuario.Email = session.GetString("Email");
             usuario.Cpf = session.GetString("Cpf");

@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using PBL_EC5.Controllers
+@using PBL_EC5.Models
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -11,48 +15,96 @@
 <body>
     <header>
         @{
+            var usuario = HelperControllers.RetornaDadosUsuario(HttpContextAccessor.HttpContext.Session);
+
             var exibirNavbar = !(ViewContext.RouteData.Values["controller"]?.ToString() == "Usuario"
             && (ViewContext.RouteData.Values["action"]?.ToString() == "Login"
             || ViewContext.RouteData.Values["action"]?.ToString() == "Cadastrar"));
         }
-        @if (exibirNavbar || !ViewBag.EsconderNavbar)
+        @if ((exibirNavbar || !ViewBag.EsconderNavbar) && ViewBag.Logado == true)
         {
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom-teal border-bottom box-shadow mb-3">
+                <div class="container d-flex justify-content-between align-items-center">
                     <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PBL EC5</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                        <ul class="navbar-nav flex-grow-1">
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto">
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Consultar
+                                    Administrar
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="Consulta">Usuários</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Usuario" asp-action="Index">Usuários</a>
                                     </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Clientes
+                                </a>
+                                <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Dashboard" asp-action="Dashboard1">Dashboard 1</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Cliente" asp-action="Index">Consulta/Cadastro</a>
                                     </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Estufas
+                                </a>
+                                <ul class="dropdown-menu">
                                     <li>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Dashboard" asp-action="Dashboard2">Dashboard 2</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Estufa" asp-action="Index">Consulta/Cadastro</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Index">Entrar</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Estufa" asp-action="Index">Estufa</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Sobre">Sobre</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Sobre">Regressão</a>
+                            </li>
+                        </ul>
+
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark d-flex align-items-center text-decoration-none"
+                                   href="#" role="button"
+                                   data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+
+                                    <span>@usuario.Nome</span>
+
+                                    @if (usuario.Foto != null && usuario.Foto.Length > 0)
+                                    {
+                                        var base64 = Convert.ToBase64String(usuario.Foto);
+                                        <img src="data:image/png;base64,@base64" alt="Foto" class="fotoPerfil" style="width:40px;height:40px;border-radius:50%;object-fit:cover;margin-left:5px;" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/genericUser.png" alt="Foto" class="fotoPerfil" style="width:40px;height:40px;border-radius:50%;object-fit:cover;margin-left:5px;" />
+                                    }
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Usuario" asp-action="Editar" asp-route-id="@usuario.Id">Ver Perfil</a>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Usuario" asp-action="LogOff">Sair</a>
+                                    </li>
+                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -61,7 +113,7 @@
         }
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-4">
             @RenderBody()
         </main>
     </div>
