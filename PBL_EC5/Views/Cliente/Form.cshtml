@@ -52,7 +52,7 @@
 
     <h2>Cadastro de Cliente</h2>
     <form class="form p-4" action="Salvar" method="post">
-        <div class="form-group">
+        @* <div class="form-group">
             <label for="Id" class="control-label">Id</label>
             @if (Model.Id == 0)
             {
@@ -62,12 +62,7 @@
             {
                 <input type="text" Name="Id" value="@Model.Id" hidden />
             }
-        </div>
-
-        <div class="form-group">
-            <label for="Id_Usuario" class="control-label">Usuário</label>
-            <input type="number" Name="Id_Usuario" value="@Model.Id_Usuario" />
-        </div>
+        </div> *@
 
         <div class="form-group">
             <label for="Razao_Social" class="control-label">Razão Social</label>
@@ -96,7 +91,7 @@
 
         <div class="form-group">
             <label for="Ativo" class="control-label">Ativo</label>
-            <select Name="Ativo" required>
+            <select class="form-control" Name="Ativo" required>
                 <option value="1" >Sim</option>
                 <option value="0" >Não</option>
             </select>
@@ -109,3 +104,37 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const cepInput = document.querySelector("input[name='CEP']");
+        const ruaInput = document.querySelector("input[name='Rua']");
+        const numeroInput = document.querySelector("input[name='Numero']");
+
+        cepInput.addEventListener("input", function () {
+            const cep = cepInput.value.replace(/\D/g, ""); // Remove caracteres não numéricos
+
+            if (cep.length === 8) {
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Erro ao buscar o CEP.");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.erro) {
+                            alert("CEP não encontrado.");
+                        } else {
+                            ruaInput.value = data.logradouro || "";
+                            numeroInput.focus(); // Foca no campo número após preencher a rua
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Erro:", error);
+                        alert("Não foi possível buscar o CEP.");
+                    });
+            }
+        });
+    });
+</script>

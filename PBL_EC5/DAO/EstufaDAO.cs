@@ -27,9 +27,9 @@ namespace PBL_EC5.Models.DAO
             estufa.Id_Cliente = registro.Table.Columns.Contains("Id_Cliente") && registro["Id_Cliente"] != DBNull.Value
                 ? Convert.ToInt32(registro["Id_Cliente"])
                 : 0;
-            estufa.Id_Estado = registro.Table.Columns.Contains("Id_Estado") && registro["Id_Estado"] != DBNull.Value
-                ? Convert.ToInt32(registro["Id_Estado"])
-                : 0;
+            //estufa.Id_Estado = registro.Table.Columns.Contains("Id_Estado") && registro["Id_Estado"] != DBNull.Value
+            //    ? Convert.ToInt32(registro["Id_Estado"])
+            //    : 0;
             estufa.Numero_Serie = registro.Table.Columns.Contains("Numero_Serie") && registro["Numero_Serie"] != DBNull.Value
                 ? registro["Numero_Serie"].ToString()
                 : string.Empty;

@@ -35,6 +35,11 @@ namespace PBL_EC5.Controllers
             return View();
         }
 
+        public IActionResult SobreRegressao()
+        {
+            return View("SobreRegressaoLinear");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
