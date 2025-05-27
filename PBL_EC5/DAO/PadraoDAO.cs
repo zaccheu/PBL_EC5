@@ -24,10 +24,12 @@ namespace PBL_EC5.Models.DAO
         {
             return HelperDAO.ExecutaProc("spInsert_" + Tabela, CriaParametros(model), ChaveIdentity);
         }
+
         public virtual void Update(T model)
         {
             HelperDAO.ExecutaProc("spUpdate_" + Tabela, CriaParametros(model));
         }
+
         public virtual void Delete(int id)
         {
             var p = new SqlParameter[]
@@ -37,6 +39,7 @@ namespace PBL_EC5.Models.DAO
             };
             HelperDAO.ExecutaProc("spDelete", p);
         }
+
         public virtual T Consulta(int id)
         {
             var p = new SqlParameter[]
@@ -50,6 +53,7 @@ namespace PBL_EC5.Models.DAO
             else
                 return MontaModel(tabela.Rows[0]);
         }
+
         public virtual int ProximoId()
         {
             var p = new SqlParameter[]
@@ -59,6 +63,7 @@ namespace PBL_EC5.Models.DAO
             var tabela = HelperDAO.ExecutaProcSelect("spProximoId", p);
             return Convert.ToInt32(tabela.Rows[0][0]);
         }
+
         public virtual List<T> Listagem()
         {
             var p = new SqlParameter[]

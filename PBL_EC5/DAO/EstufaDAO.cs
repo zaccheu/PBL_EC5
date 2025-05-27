@@ -8,14 +8,14 @@ namespace PBL_EC5.Models.DAO
     {
         protected override SqlParameter[] CriaParametros(EstufaViewModel estufa)
         {
-            SqlParameter[] parametros = new SqlParameter[7];
+            SqlParameter[] parametros = new SqlParameter[6];
             parametros[0] = new SqlParameter("Id", estufa.Id);
             parametros[1] = new SqlParameter("Id_Cliente", estufa.Id_Cliente);
-            parametros[2] = new SqlParameter("Id_Estado", estufa.Id_Estado);
-            parametros[3] = new SqlParameter("Numero_Serie", estufa.Numero_Serie);
-            parametros[4] = new SqlParameter("Marca", estufa.Marca);
-            parametros[5] = new SqlParameter("Potencia", estufa.Potencia);
-            parametros[6] = new SqlParameter("Tensao", estufa.Tensao);
+            //parametros[2] = new SqlParameter("Id_Estado", estufa.Id_Estado);
+            parametros[2] = new SqlParameter("Numero_Serie", estufa.Numero_Serie);
+            parametros[3] = new SqlParameter("Marca", estufa.Marca);
+            parametros[4] = new SqlParameter("Potencia", estufa.Potencia);
+            parametros[5] = new SqlParameter("Tensao", estufa.Tensao);
 
             return parametros;
         }
@@ -23,7 +23,7 @@ namespace PBL_EC5.Models.DAO
         protected override EstufaViewModel MontaModel(DataRow registro)
         {
             EstufaViewModel estufa = new EstufaViewModel();
-            estufa.Id = Convert.ToInt32(registro["Id"]);
+            estufa.Id = Convert.ToInt32(registro["IdEstufa"]);
             estufa.Id_Cliente = registro.Table.Columns.Contains("Id_Cliente") && registro["Id_Cliente"] != DBNull.Value
                 ? Convert.ToInt32(registro["Id_Cliente"])
                 : 0;
@@ -48,7 +48,7 @@ namespace PBL_EC5.Models.DAO
 
         protected override void SetTabela()
         {
-            Tabela = "dbo.Estufa";
+            Tabela = "Estufa";
         }
     }
 }

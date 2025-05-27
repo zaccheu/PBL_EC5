@@ -54,7 +54,7 @@ namespace PBL_EC5.DAO
 
         protected override void SetTabela()
         {
-            Tabela = "dbo.Cliente";
+            Tabela = "Cliente";
         }
     }
 }
