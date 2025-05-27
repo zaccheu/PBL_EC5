@@ -5,8 +5,6 @@ using PBL_EC5.Models;
 using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 
 namespace PBL_EC5.Controllers
 {
@@ -21,7 +19,54 @@ namespace PBL_EC5.Controllers
         public IActionResult Login()
         {
             var model = new UsuarioViewModel();
+
+            ViewBag.EsconderNavbar = true;
+            ViewBag.Erro = TempData["Erro"];
+
             return View("Login", model);
+        }
+
+        public override IActionResult Cadastrar()
+        {
+            ViewBag.EsconderNavbar = true;
+            return base.Cadastrar();
+        }
+
+        public IActionResult Entrar(UsuarioViewModel model)
+        {
+            ModelState.Remove("Nome");
+
+            if (!ModelState.IsValid)
+            {
+                TempData["Erro"] = "Preencha os campos corretamente!";
+                return RedirectToAction("Login", model);
+            }
+
+            UsuarioDAO dao = new UsuarioDAO();
+            UsuarioViewModel usuario = dao.ConsultaLogin(model);
+
+            if (usuario != null)
+            {
+                ArmazenaDadosSession(usuario);
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                TempData["Erro"] = "Email ou senha incorreto!";
+                return RedirectToAction("Login", model);
+            }
+
+        }
+
+        public void ArmazenaDadosSession(UsuarioViewModel model)
+        {
+            HttpContext.Session.SetString("Logado", "true");
+            HttpContext.Session.SetString("Nome", model.Nome);
+            HttpContext.Session.SetString("Email", model.Email);
+            HttpContext.Session.SetString("Cpf", model.Cpf);
+            HttpContext.Session.SetString("Administrador", model.Administrador.ToString());
+            if (model.Foto != null)
+                HttpContext.Session.Set("Foto", model.Foto);
         }
 
         public byte[] ConvertImageToByte(IFormFile file)

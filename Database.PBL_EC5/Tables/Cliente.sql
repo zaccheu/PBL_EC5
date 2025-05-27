@@ -1,5 +1,5 @@
 ﻿CREATE TABLE Cliente (
-    [Id] INT IDENTITY(1,1) NOT NULL,
+    [Id] INT NOT NULL,
     [Id_Usuario] INT NULL,
     Razao_Social VARCHAR(255) NOT NULL,
     [CNPJ] VARCHAR(14) NOT NULL,

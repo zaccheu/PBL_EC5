@@ -1,5 +1,5 @@
 ﻿CREATE TABLE Estufa (
-    Id INT PRIMARY KEY IDENTITY(1,1), -- Chave primária com auto incremento
+    Id INT PRIMARY KEY, -- Chave primária com auto incremento
     Id_Cliente INT NOT NULL, -- Relacionamento com a tabela Cliente
     Id_Estado INT NOT NULL, -- Relacionamento com a tabela Estado
     Numero_Serie VARCHAR(255) NOT NULL, -- Número de série da estufa

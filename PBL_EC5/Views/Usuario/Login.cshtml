@@ -6,15 +6,20 @@
 <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
 <div>
     <div class="mx-auto my-4 text-center">
-        <img class="logo" src="~/logo1.png" alt="Logo"/>
+        <img class="logo" src="~/logo1.png" alt="Logo" />
     </div>
-    <form class="form px-4" asp-controller="Usuario" asp-action="Login" method="post">
+    <form class="form px-4" asp-controller="Usuario" asp-action="Entrar" method="post">
         <div class="formLogin paddingLogin mx-auto w-50">
             @if (!string.IsNullOrEmpty(ViewBag.UsuarioLogado))
             {
                 <label class="control-label text-danger">@ViewBag.UsuarioLogado</label>
             }
-
+            @if (!string.IsNullOrEmpty(ViewBag.Erro))
+            {
+                <div class="divErro">
+                    <label class="control-label text-danger mb-0">@ViewBag.Erro</label>
+                </div>
+            }
             <div class="form-group px-5">
                 <div>
                     <label for="Email" class="control-label" style="font-weight:600">Email</label>

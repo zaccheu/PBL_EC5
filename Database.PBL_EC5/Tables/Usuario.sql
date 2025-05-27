@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [Usuario](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Id] [int] NOT NULL,
 	[Nome] [varchar](50) NOT NULL,
 	[Cpf] [varchar](15) NULL,
 	[Email] [varchar](50) NOT NULL,
