@@ -81,5 +81,6 @@
     <Build Include="Stored Procedures\Comum\spDelete.sql" />
     <Build Include="Stored Procedures\Comum\spConsulta.sql" />
     <Build Include="Stored Procedures\Comum\spProximoId.sql" />
+    <Build Include="Stored Procedures\Usuario\spConsultaLogin.sql" />
   </ItemGroup>
 </Project>

@@ -11,7 +11,7 @@ body {
     font-family: sans-serif;
 }
 
-.logo{
+.logo {
     background-color: rgb(255, 255, 255);
     width: 140px;
     border-radius: 100%;
@@ -23,11 +23,12 @@ body {
     border-radius: 10px;
     background-color: rgb(255, 255, 255, 0.4);
 }
-.paddingLogin{
+
+.paddingLogin {
     padding: 30px 15px 5px 15px;
 }
 
-.paddingCadastro{
+.paddingCadastro {
     padding: 20px 50px 5px 50px;
 }
 
@@ -39,7 +40,7 @@ body {
     padding: 5px 50px;
 }
 
-    .btn_entrar:hover, .btn_cadastrar:hover{
+    .btn_entrar:hover, .btn_cadastrar:hover {
         background-color: rgb(19, 145, 118) !important;
     }
 
@@ -48,7 +49,7 @@ body {
     border-radius: 5px !important;
     padding: 7px 15px;
     font-size: 15px;
-    width:100%;
+    width: 100%;
 }
 
 a {
@@ -66,4 +67,20 @@ a {
     border: 2px solid #66FFCC;
     object-fit: cover; /* Caso carregue uma imagem, ela cobre o espaço */
     cursor: pointer; /* Indica que pode ser clicado (para upload) */
+}
+
+.divErro {
+    width: 75%;
+    padding: 0.4rem;
+    margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    background-color: #ffcccc;
+    border: 1px solid red;
+    border-radius: 5px;
+    /* Alinhamento vertical e horizontal */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

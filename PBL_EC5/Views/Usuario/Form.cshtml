@@ -7,6 +7,7 @@
 <div class="text-start">
     <form class="form p-4" action="Salvar" method="post" enctype="multipart/form-data" >
         <input type="hidden" name="Operacao" value="@ViewBag.Operacao" />
+        <input type="hidden" name="IsCadastro" value="true" />
 
         <h2 class="text-center">Cadastro de Usuário</h2>
         <div class="formLogin paddingCadastro mx-auto w-75">
@@ -30,7 +31,7 @@
                     </div>
                     <div class="form-group">
                         <label for="Cpf" class="control-label" style="font-weight:600">CPF</label>
-                        <input class="input_form form-control" type="text" Name="Cpf" value="@Model.Cpf" placeholder="123.456.789-00" />
+                        <input class="input_form form-control" type="text" Name="Cpf" value="@Model.Cpf" placeholder="123.456.789-00" required/>
                     </div>
                     <div class="form-group">
                         <label for="Email" class="control-label" style="font-weight:600">Email</label>

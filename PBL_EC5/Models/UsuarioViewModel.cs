@@ -19,7 +19,7 @@ namespace PBL_EC5.Models
         public string Email { get; set; }
 
         [Required]
-        public TipoAdministrador Administrador { get; set; } // '0' ou '1' como char
+        public TipoAdministrador Administrador { get; set; } = TipoAdministrador.Nao; // '0' ou '1' como char
 
         [Required]
         public string Senha { get; set; }
@@ -38,6 +38,5 @@ namespace PBL_EC5.Models
                     return string.Empty;
             }
         }
-
     }
 }

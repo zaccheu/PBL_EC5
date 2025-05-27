@@ -48,7 +48,7 @@ namespace PBL_EC5.Controllers
                 model.Id = DAO.ProximoId();
         }
 
-        public virtual IActionResult Salvar(T model, string Operacao)
+        public virtual IActionResult Salvar(T model, string Operacao, bool IsCadastro)
         {
             try
             {
@@ -57,12 +57,19 @@ namespace PBL_EC5.Controllers
                 {
                     ViewBag.Operacao = Operacao;
                     PreencheDadosParaView(Operacao, model);
+                    if (IsCadastro)
+                        return RedirectToAction("Login", "Usuario");
+
                     return View(NomeViewForm, model);
                 }
                 else
                 {
                     if (Operacao == "I")
+                    {
                         DAO.Insert(model);
+                        if (IsCadastro)
+                            return RedirectToAction("Index", "Home");
+                    }
                     else
                         DAO.Update(model);
 

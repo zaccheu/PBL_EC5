@@ -18,7 +18,15 @@ namespace PBL_EC5.DAO
             parametros[3] = new SqlParameter("email", usuario.Email);
             parametros[4] = new SqlParameter("administrador", (char)usuario.Administrador); // converte enum para char
             parametros[5] = new SqlParameter("senha", usuario.Senha);
-            parametros[6] = new SqlParameter("foto", usuario.Foto as object ?? DBNull.Value);
+
+            SqlParameter foto = new SqlParameter("foto", SqlDbType.VarBinary, -1); // -1 indica MAX
+            // Verifique se usuario.Foto é byte[] e se não é nulo
+            if (usuario.Foto != null && usuario.Foto.Length > 0)
+                foto.Value = usuario.Foto;
+            else
+                foto.Value = DBNull.Value;
+
+            parametros[6] = foto;
             return parametros;
         }
 
@@ -44,6 +52,23 @@ namespace PBL_EC5.DAO
         {
             Tabela = "Usuario";
             ChaveIdentity = true;
+        }
+
+        public UsuarioViewModel ConsultaLogin(UsuarioViewModel model)
+        {
+            //Alterar para senha criptografada aqui
+            //model.Senha = Criptografia.Encrypt(model.Senha)
+
+            var p = new SqlParameter[]
+            {
+                 new SqlParameter("email", model.Email),
+                 new SqlParameter("senha", model.Senha)
+            };
+            var tabela = HelperDAO.ExecutaProcSelect("spConsultaLogin", p);
+            if (tabela.Rows.Count == 0)
+                return null;
+            else
+                return MontaModel(tabela.Rows[0]);
         }
     }
 }
