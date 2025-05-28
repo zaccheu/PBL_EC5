@@ -59,8 +59,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: #f8f9fa;
 }
 .footer {
   position: absolute;
@@ -78,7 +79,7 @@ body {
 
 /* Cor de fundo principal da Navbar */
 .navbar-custom-teal {
-    background-color: rgb(0, 102, 102);
+    background: linear-gradient(to left, rgb(0, 50, 50) 15%, rgb(0, 102, 102) 70%, rgb(0, 50, 50));
 }
 
     /* Base styles for ALL links (incl. Brand, Nav-links, User link) */
@@ -159,6 +160,20 @@ body {
             box-shadow: 0 0 0 0.25rem rgba(0, 153, 153, 0.5); /* Adiciona um 'glow' verde claro no foco */
         }
 
+    .navbar-custom-teal .dropdown-toggle::after {
+        /* Adiciona a transição para a propriedade 'transform' */
+        transition: transform 0.3s ease-in-out;
+        /* Garante que a transformação funcione corretamente */
+        display: inline-block;
+        vertical-align: 0.255em;
+    }
+
+    /* Define a rotação quando o menu está aberto (clicado) */
+    .navbar-custom-teal .dropdown-toggle[aria-expanded="true"]::after {
+        /* Gira o ícone 180 graus */
+        transform: rotate(-90deg);
+    }
+
 .fotoPerfil {
     background-color: rgb(245, 245, 245);
     border: 1px solid rgb(0, 102, 102);
@@ -168,3 +183,4 @@ body {
     object-fit: cover;
     margin-left: 10px;
 }
+
