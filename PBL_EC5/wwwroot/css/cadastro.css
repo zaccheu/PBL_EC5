@@ -1,0 +1,51 @@
+﻿/*LOGIN - TELA INICIAL*/
+/*LOGIN - CADASTRO*/
+/*GERAL*/
+
+.formLogin {
+    border: 2px solid rgb(0, 102, 102);
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.paddingCadastro {
+    padding: 20px 50px 5px 50px;
+}
+
+.btn_salvar {
+    background-color: rgb(25, 193, 159) !important;
+    color: white !important;
+    border: 1px solid #000 !important;
+    border-radius: 5px !important;
+    padding: 5px 50px;
+}
+
+    .btn_salvar:hover {
+        background-color: rgb(19, 145, 118) !important;
+    }
+
+.input_form {
+    border: 1px solid #000 !important;
+    border-radius: 5px !important;
+    padding: 7px 15px;
+    font-size: 15px;
+    width: 100%;
+}
+
+a {
+    color: rgb(19, 145, 118) !important;
+    font-weight: bold;
+}
+
+    a:hover {
+        color: rgb(12, 88, 72) !important;
+    }
+
+.pic_placeholder {
+    background-color: rgb(245, 245, 245);
+    width: 200px;
+    border-radius: 50%;
+    border: 2px solid rgb(0, 50, 50);
+    object-fit: cover; /* Caso carregue uma imagem, ela cobre o espaço */
+    cursor: pointer; /* Indica que pode ser clicado (para upload) */
+}

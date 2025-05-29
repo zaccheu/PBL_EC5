@@ -87,20 +87,13 @@
 
                                     <span>@usuario.Nome</span>
 
-                                    @if (usuario.Foto != null && usuario.Foto.Length > 0)
-                                    {
-                                        var base64 = Convert.ToBase64String(usuario.Foto);
-                                        <img src="data:image/png;base64,@base64" alt="Foto" class="fotoPerfil" style="width:40px;height:40px;border-radius:50%;object-fit:cover;margin-left:5px;" />
-                                    }
-                                    else
-                                    {
-                                        <img src="~/genericUser.png" alt="Foto" class="fotoPerfil" style="width:40px;height:40px;border-radius:50%;object-fit:cover;margin-left:5px;" />
-                                    }
+                                    <img src="@(usuario.Foto == null ? Url.Content("~/userGeneric.png") : $"data:image/png;base64,{usuario.FotoBase64}")"
+                                         alt="Foto de Perfil" class="fotoPerfil"/>
                                 </a>
 
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a class="dropdown-item" asp-controller="Usuario" asp-action="Editar" asp-route-id="@usuario.Id">Ver Perfil</a>
+                                        <a class="dropdown-item" asp-controller="Usuario" asp-action="Editar" asp-route-id="@usuario.Id" asp-route-meuPerfil="true">Ver Perfil</a>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>

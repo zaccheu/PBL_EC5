@@ -9,7 +9,8 @@ a.navbar-brand {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
+    font-weight: normal !important;
 }
 
 .btn-primary {
@@ -178,9 +179,8 @@ body {
     background-color: rgb(245, 245, 245);
     border: 1px solid rgb(0, 102, 102);
     border-radius: 50%;
-    width: 50px;
-    padding: 5px;
+    width: 40px;
+    padding: 2px;
     object-fit: cover;
     margin-left: 10px;
 }
-

@@ -20,7 +20,7 @@ namespace PBL_EC5.Controllers
         public static Boolean VerificaAdm(ISession session)
         {
             string adm = session.GetString("Administrador");
-            if (adm == "1")
+            if (adm == "Sim")
                 return true;
             else
                 return false;

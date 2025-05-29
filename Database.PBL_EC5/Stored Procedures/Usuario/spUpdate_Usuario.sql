@@ -1,8 +1,10 @@
 ﻿CREATE PROCEDURE spUpdate_Usuario
 	@id INT,
+    @nome NVARCHAR(50),
     @email NVARCHAR(100),
-	@foto VARBINARY(MAX),
+    @cpf NVARCHAR(15),
 	@senha VARCHAR(MAX),
+	@foto VARBINARY(MAX),
     @administrador CHAR(1)
 AS
 BEGIN
@@ -10,9 +12,11 @@ BEGIN
 
     UPDATE Usuario
     SET
+    nome = @nome,
     email = @email, 
-	foto = @foto,
+    cpf = @cpf,
 	senha = @senha,
+	foto = @foto,
     administrador = @administrador
     WHERE id = @id;
 END

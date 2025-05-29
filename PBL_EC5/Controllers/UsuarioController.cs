@@ -29,8 +29,19 @@ namespace PBL_EC5.Controllers
         public override IActionResult Cadastrar()
         {
             ViewBag.EsconderNavbar = true;
-            ViewBag.CadInicial = true; 
-            return base.Cadastrar();
+
+            try
+            {
+                UsuarioViewModel model = new UsuarioViewModel();
+                ViewBag.Operacao = "I";
+
+                PreencheDadosParaView("I", model);
+                return View("Cadastro", model);
+            }
+            catch (Exception erro)
+            {
+                return View("Error", new ErrorViewModel(erro.ToString()));
+            }
         }
 
         public IActionResult Entrar(UsuarioViewModel model)
@@ -102,12 +113,12 @@ namespace PBL_EC5.Controllers
             if (ModelState.IsValid)
             {
                 //na alteração, se não foi informada a imagem, iremos manter a que já estava salva. 
-                if (operacao == "A" && model.FotoUpload == null && model.Foto != null)
+                if (operacao == "A" && model.FotoUpload == null)
                 {
                     UsuarioViewModel usuario = DAO.Consulta(model.Id);
                     model.Foto = usuario.Foto;
                 }
-                else
+                else if (model.FotoUpload != null)
                 {
                     model.Foto = ConvertImageToByte(model.FotoUpload);
                 }
