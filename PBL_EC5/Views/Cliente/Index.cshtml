@@ -85,7 +85,7 @@
                         <td>@(cliente.Ativo == '1' ? "Sim" : "Não")</td>
                         <td>
                             <a href="@Url.Action("Editar", "Cliente", new { id = cliente.Id })" class="btn btn-primary">Editar</a>
-                            <a href="@Url.Action("Excluir", "Cliente", new { id = cliente.Id })" class="btn btn-danger">Excluir</a>
+                            <a href="@Url.Action("Deletar", "Cliente", new { id = cliente.Id })" class="btn btn-danger">Excluir</a>
                         </td>
                     </tr>
                 }

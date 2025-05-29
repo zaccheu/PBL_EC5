@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE spInsert_Cliente
+﻿create PROCEDURE spInsert_Cliente
     @id INT,
     @id_usuario INT = NULL,
     @razao_social VARCHAR(255),

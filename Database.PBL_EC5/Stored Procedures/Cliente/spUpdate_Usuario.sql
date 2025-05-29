@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE spUpdate_Cliente
+﻿
+CREATE PROCEDURE [dbo].[spInsert_Cliente]
     @id INT,
     @id_usuario INT = NULL,
     @razao_social VARCHAR(255),
@@ -11,14 +12,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    UPDATE Cliente
-    SET
-        id_usuario = @id_usuario,
-        razao_social = @razao_social,
-        cnpj = @cnpj,
-        cep = @cep,
-        rua = @rua,
-        numero = @numero,
-        ativo = @ativo
-    WHERE id = @id;
+    INSERT INTO Cliente (id_usuario, razao_social, cnpj, cep, rua, numero, ativo)
+    VALUES (@id_usuario, @razao_social, @cnpj, @cep, @rua, @numero, @ativo);
 END
+GO

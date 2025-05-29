@@ -1,8 +1,8 @@
-﻿CREATE PROCEDURE spUpdate_Estufa
+﻿CREATE PROCEDURE [dbo].[spUpdate_Estufa]
     @id INT,
     @id_cliente INT,
-    @numero_serie NVARCHAR(255),
-    @marca NVARCHAR(255),
+    @numero_serie VARCHAR(255),
+    @marca VARCHAR(255),
     @potencia FLOAT,
     @tensao INT
 AS
@@ -18,3 +18,4 @@ BEGIN
         tensao = @tensao
     WHERE id = @id;
 END
+GO
