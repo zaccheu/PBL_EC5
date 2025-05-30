@@ -92,7 +92,10 @@ namespace PBL_EC5.Controllers
                             return RedirectToAction("Index", "Home");
                     }
                     else
+                    {
                         DAO.Update(model);
+                        ArmazenaDadosSessionUsuario(model);
+                    }
 
                     return RedirecionaParaIndex(model);
                 }
@@ -168,5 +171,25 @@ namespace PBL_EC5.Controllers
                 return View("Error", new ErrorViewModel(erro.ToString()));
             }
         }
+
+        public void ArmazenaDadosSession(UsuarioViewModel model)
+        {
+            HttpContext.Session.SetString("Logado", "true");
+            HttpContext.Session.SetString("Id", model.Id.ToString());
+            HttpContext.Session.SetString("Nome", model.Nome);
+            HttpContext.Session.SetString("Email", model.Email);
+            HttpContext.Session.SetString("Cpf", model.Cpf);
+            HttpContext.Session.SetString("Administrador", model.Administrador.ToString());
+            if (model.Foto != null)
+                HttpContext.Session.Set("Foto", model.Foto);
+        }
+        public void ArmazenaDadosSessionUsuario(T model)
+        {
+            if (model is UsuarioViewModel usuarioModel)
+            {
+                ArmazenaDadosSession(usuarioModel);
+            }
+        }
+
     }
 }

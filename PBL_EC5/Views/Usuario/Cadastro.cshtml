@@ -4,12 +4,12 @@
 }
 
 <link rel="stylesheet" href="~/css/login.css" />
-<div class="text-start">
+<div>
     <form class="form p-4" asp-controller="Usuario" asp-action="Salvar" method="post" enctype="multipart/form-data">
         <input type="hidden" name="Operacao" value="@ViewBag.Operacao" />
         <input type="hidden" name="IsCadastro" value="true" />
 
-        <h2 class="text-center">Cadastro de Usuário</h2>
+        <h2 class="text-center m-5">Cadastro de Usuário</h2>
         <div class="formLogin paddingCadastro mx-auto w-75">
             <div class="row">
                 <div class="col-md-8">

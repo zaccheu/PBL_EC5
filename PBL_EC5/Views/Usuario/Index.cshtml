@@ -7,12 +7,11 @@
     var isAdm = HelperControllers.VerificaAdm(HttpContextAccessor.HttpContext.Session);
 }
 
-<script src="~/js/consulta.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="~/css/cadastro.css" />
-<script></script>
+
 <div class="text-center">
-    <h1 class="">Usuários</h1>
-    <br />
+    <h2 class="mt-4 text-center">Consulta de Usuários</h2><br />
 
     <div class="formLogin paddingCadastro mx-auto w-75 mb-4">
         <form id="filtroUsuarios" class="row">
@@ -59,7 +58,12 @@
                     <tr>
                         <th>Nome</th>
                         <th>E-mail</th>
+                        <th>CPF</th>
                         <th>Administrador</th>
+                        @if (isAdm)
+                        {
+                            <th>Ações</th>
+                        }
                     </tr>
                 </thead>
                 <tbody id="usuarios-tbody">
@@ -70,7 +74,22 @@
                             <tr class="body">
                                 <td>@usuario.Nome</td>
                                 <td>@usuario.Email</td>
-                                <td>@usuario.Administrador</td>
+                                <td>@usuario.Cpf</td>
+                                <td>
+                                    @Html.Raw(usuario.Administrador == TipoAdministrador.Sim ? "<span class=\"bi bi-check-lg\"></span>" : "")
+                                    </td>
+                                @if (isAdm)
+                                {
+                                    <td>
+                                        <a asp-controller="Usuario" asp-action="Editar" asp-route-id="@usuario.Id">
+                                            <span class="bi bi-pencil"></span>
+                                        </a>
+                                        <a asp-controller="Usuario" asp-action="Deletar" asp-route-id="@usuario.Id"
+                                           onclick="return confirm('Tem certeza que deseja deletar este usuário?');">
+                                            <span class="bi bi-x-lg"></span>
+                                        </a>
+                                    </td>
+                                }
                             </tr>
                         }
                     }
@@ -87,3 +106,32 @@
     </div>
 
 </div>
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var btnPesquisar = document.getElementById('btnPesquisar');
+        if (btnPesquisar) {
+            btnPesquisar.addEventListener('click', function (e) {
+                e.preventDefault();
+                var formData = $('#filtroUsuarios').serialize();
+                $.ajax({
+                    url: '/Usuario/Pesquisar',
+                    type: 'POST',
+                    data: formData,
+                    success: function (html) {
+                        $('#usuarios-tbody').html(html);
+                    }
+                });
+            });
+        }
+
+        var btnLimpar = document.getElementById('btnLimpar');
+        if (btnLimpar) {
+            btnLimpar.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Limpa todos os campos do formulário
+                $('#filtroUsuarios')[0].reset();
+            });
+        }
+    });
+</script>
