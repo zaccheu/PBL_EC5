@@ -1,5 +1,8 @@
-﻿using PBL_EC5.DAO;
+﻿using Microsoft.AspNetCore.Mvc;
+using PBL_EC5.DAO;
 using PBL_EC5.Models;
+using System;
+using System.Linq;
 
 namespace PBL_EC5.Controllers
 {
@@ -9,6 +12,26 @@ namespace PBL_EC5.Controllers
         {
             DAO = new ClienteDAO();
             GeraProximoId = true;
+        }
+
+        [HttpPost]
+        public IActionResult Pesquisar(string Razao_Social, string CNPJ, string CEP, string Ativo)
+        {
+            var lista = DAO.Listagem();
+
+            if (!string.IsNullOrEmpty(Razao_Social))
+                lista = lista.Where(c => c.Razao_Social != null && c.Razao_Social.Contains(Razao_Social, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!string.IsNullOrEmpty(CNPJ))
+                lista = lista.Where(c => c.CNPJ != null && c.CNPJ.Contains(CNPJ)).ToList();
+
+            if (!string.IsNullOrEmpty(CEP))
+                lista = lista.Where(c => c.CEP != null && c.CEP.Contains(CEP)).ToList();
+
+            if (!string.IsNullOrEmpty(Ativo))
+                lista = lista.Where(c => c.Ativo.ToString() == Ativo).ToList();
+
+            return PartialView("_TabelaClientes", lista);
         }
 
         protected override void ValidaDados(ClienteViewModel model, string operacao)

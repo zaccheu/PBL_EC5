@@ -1,101 +1,141 @@
-﻿@model List<ClienteViewModel>
+﻿@using Microsoft.AspNetCore.Http
+@using PBL_EC5.Controllers
+@inject IHttpContextAccessor HttpContextAccessor
+@model List<ClienteViewModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAdm = HelperControllers.VerificaAdm(HttpContextAccessor.HttpContext.Session);
 }
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="~/css/cadastro.css" />
 <div class="text-center">
-    <style>
-        button {
-            padding: 7px 19px;
-            border: none;
-            background-color: #1b6ec2;
-            color: white;
-            border-radius: 5px;
-        }
+    <h2 class="mt-4 text-center">Consulta de Clientes</h2><br />
 
-        .mb-4 {
-            margin-bottom: 0px !important;
-        }
-
-        table {
-            font-family: Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-            table td, table th {
-                padding: 8px;
-                vertical-align: top !important;
-                display: table-cell !important;
-                text-align: center !important;
-            }
-
-            table tr:nth-child(even) {
-                background-color: #dbdbdb;
-            }
-
-            table tr {
-                border-bottom: 1px solid #ddd;
-            }
-
-                table tr:nth-child(even) {
-                    background-color: #dfdfdf !important;
-                }
-
-            table th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
-                background-color: #1b6ec2;
-                color: white;
-            }
-    </style>
-    <h1 class="display-4 mb-4">Clientes</h1>
-    <br />
-    <div>
-        <button>
-            Limpar
-        </button>
-        <a href="@Url.Action("Cadastrar", "Cliente")" class="btn btn-success">Novo</a>
+    <div class="formLogin paddingCadastro mx-auto w-75 mb-4">
+        <form id="filtroClientes" class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Razao_Social" class="control-label">Razão Social</label>
+                    <input class="input_form form-control" type="text" name="Razao_Social" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="CNPJ" class="control-label">CNPJ</label>
+                    <input class="input_form form-control" type="text" name="CNPJ" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="CEP" class="control-label">CEP</label>
+                    <input class="input_form form-control" type="text" name="CEP" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Ativo" class="control-label">Ativo</label>
+                    <select class="form-control input_form" name="Ativo">
+                        <option value="">Todos</option>
+                        <option value="A">Sim</option>
+                        <option value="I">Não</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 text-center mt-3 mb-2">
+                <button type="button" class="btn btn_limpar" id="btnLimparCliente">LIMPAR</button>
+                <button type="button" class="btn btn_pesquisar mx-2" id="btnPesquisarCliente">PESQUISAR</button>
+                <a class="btn btn_novo" asp-controller="Cliente" asp-action="Cadastrar">NOVO</a>
+            </div>
+        </form>
     </div>
-    <div class="table-responsive m-2">
-        <table class="table text-center">
-            <thead class="head">
-                <tr>
-                    <th>Id</th>
-                    <th>Razão Social</th>
-                    <th>CNPJ</th>
-                    <th>CEP</th>
-                    <th>Rua</th>
-                    <th>Número</th>
-                    <th>Ativo</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            @if (Model.Count > 0)
-            {
-                @foreach (var cliente in Model)
-                {
-                    <tr class="body">
-                        <td>@cliente.Id</td>
-                        <td>@cliente.Razao_Social</td>
-                        <td>@cliente.CNPJ</td>
-                        <td>@cliente.CEP</td>
-                        <td>@cliente.Rua</td>
-                        <td>@cliente.Numero</td>
-                        <td>@(cliente.Ativo == '1' ? "Sim" : "Não")</td>
-                        <td>
-                            <a href="@Url.Action("Editar", "Cliente", new { id = cliente.Id })" class="btn btn-primary">Editar</a>
-                            <a href="@Url.Action("Deletar", "Cliente", new { id = cliente.Id })" class="btn btn-danger">Excluir</a>
-                        </td>
+
+    <div class="formLogin paddingCadastro mx-auto w-75">
+        <div class="table-responsive m-2">
+            <table class="table text-center">
+                <thead class="head">
+                    <tr>
+                        <th>Id</th>
+                        <th>Razão Social</th>
+                        <th>CNPJ</th>
+                        <th>CEP</th>
+                        <th>Rua</th>
+                        <th>Número</th>
+                        <th>Ativo</th>
+                        @if (isAdm)
+                        {
+                            <th>Ações</th>
+                        }
                     </tr>
-                }
-            }
-            else
-            {
-                <tr class="body">
-                    <td colspan="9">Nenhum registro encontrado</td>
-                </tr>
-            }
-        </table>
+                </thead>
+                <tbody id="clientes-tbody">
+                    @if (Model.Count > 0)
+                    {
+                        foreach (var cliente in Model)
+                        {
+                            <tr class="body">
+                                <td>@cliente.Id</td>
+                                <td>@cliente.Razao_Social</td>
+                                <td>@cliente.CNPJ</td>
+                                <td>@cliente.CEP</td>
+                                <td>@cliente.Rua</td>
+                                <td>@cliente.Numero</td>
+                                <td>
+                                    @Html.Raw(cliente.Ativo == 'A' ? "<span class=\"bi bi-check-lg\"></span>" : "")
+                                </td>
+                                @if (isAdm)
+                                {
+                                    <td>
+                                        <a asp-controller="Cliente" asp-action="Editar" asp-route-id="@cliente.Id">
+                                            <span class="bi bi-pencil"></span>
+                                        </a>
+                                        <a asp-controller="Cliente" asp-action="Deletar" asp-route-id="@cliente.Id"
+                                           onclick="return confirm('Tem certeza que deseja deletar este cliente?');">
+                                            <span class="bi bi-x-lg"></span>
+                                        </a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr class="body">
+                            <td colspan="8">Nenhum registro encontrado</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var btnPesquisar = document.getElementById('btnPesquisarCliente');
+        if (btnPesquisar) {
+            btnPesquisar.addEventListener('click', function (e) {
+                e.preventDefault();
+                var formData = $('#filtroClientes').serialize();
+                $.ajax({
+                    url: '/Cliente/Pesquisar',
+                    type: 'POST',
+                    data: formData,
+                    success: function (html) {
+                        $('#clientes-tbody').html(html);
+                    }
+                });
+            });
+        }
+
+        var btnLimpar = document.getElementById('btnLimparCliente');
+        if (btnLimpar) {
+            btnLimpar.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Limpa todos os campos do formulário
+                $('#filtroClientes')[0].reset();
+            });
+        }
+    });
+</script>

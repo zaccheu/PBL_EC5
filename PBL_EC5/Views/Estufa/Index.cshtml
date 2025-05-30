@@ -1,103 +1,136 @@
-﻿@model List<EstufaViewModel>
+﻿@using Microsoft.AspNetCore.Http
+@using PBL_EC5.Controllers
+@inject IHttpContextAccessor HttpContextAccessor
+@model List<EstufaViewModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAdm = HelperControllers.VerificaAdm(HttpContextAccessor.HttpContext.Session);
 }
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="~/css/cadastro.css" />
+
 <div class="text-center">
-    <style>
-        button {
-            padding: 7px 19px;
-            border: none;
-            background-color: #1b6ec2;
-            color: white;
-            border-radius: 5px;
-        }
+    <h2 class="mt-4 text-center">Consulta de Estufas</h2><br />
 
-        .mb-4 {
-            margin-bottom: 0px !important;
-        }
+    <div class="formLogin paddingCadastro mx-auto w-75 mb-4">
+        <form id="filtroEstufas" class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Numero_Serie" class="control-label">Número de Série</label>
+                    <input class="input_form form-control" type="text" name="Numero_Serie" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Marca" class="control-label">Marca</label>
+                    <input class="input_form form-control" type="text" name="Marca" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Id_Cliente" class="control-label">Cliente</label>
+                    <input class="input_form form-control" type="text" name="Id_Cliente" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Id_Estado" class="control-label">Estado</label>
+                    <input class="input_form form-control" type="text" name="Id_Estado" />
+                </div>
+            </div>
 
-        table {
-            font-family: Arial, Helvetica, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-            table td, table th {
-                padding: 8px;
-                vertical-align: top !important;
-                display: table-cell !important;
-                text-align: center !important;
-            }
-
-            table tr:nth-child(even) {
-                background-color: #dbdbdb;
-            }
-
-            table tr {
-                border-bottom: 1px solid #ddd;
-            }
-
-                table tr:nth-child(even) {
-                    background-color: #dfdfdf !important;
-                }
-
-            table th {
-                padding-top: 12px;
-                padding-bottom: 12px;
-                text-align: left;
-                background-color: #1b6ec2;
-                color: white;
-            }
-    </style>
-    <h1 class="display-4 mb-4">Estufas</h1>
-    <br />
-    <div>
-        <button>
-            Limpar
-        </button>
-        <a href="@Url.Action("Cadastrar", "Estufa")" class="btn btn-success">Novo</a>
+            <div class="col-12 text-center mt-3 mb-2">
+                <button type="button" class="btn btn_limpar" id="btnLimpar">LIMPAR</button>
+                <button type="button" class="btn btn_pesquisar mx-2" id="btnPesquisar">PESQUISAR</button>
+                <a class="btn btn_novo" asp-controller="Estufa" asp-action="Cadastrar">NOVO</a>
+            </div>
+        </form>
     </div>
 
-    <div class="table-responsive m-2">
-        <table class="table text-center">
-            <thead class="head">
-                <tr>
-                    <th>Id</th>
-                    <th>Cliente</th>
-                    <th>Estado</th>
-                    <th>Número de Série</th>
-                    <th>Marca</th>
-                    <th>Potência (W)</th>
-                    <th>Tensão (V)</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            @if (Model.Count > 0)
-            {
-                @foreach (var estufa in Model)
-                {
-                    <tr class="body">
-                        <td>@estufa.Id</td>
-                        <td>@estufa.Id_Cliente</td>
-                        <td>@estufa.Id_Estado</td>
-                        <td>@estufa.Numero_Serie</td>
-                        <td>@estufa.Marca</td>
-                        <td>@estufa.Potencia</td>
-                        <td>@estufa.Tensao</td>
-                        <td>
-                            <a href="@Url.Action("Editar", "Estufa", new { id = estufa.Id })" class="btn btn-primary">Editar</a>
-                            <a href="@Url.Action("Deletar", "Estufa", new { id = estufa.Id })" class="btn btn-danger">Excluir</a>
-                        </td>
+    <div class="formLogin paddingCadastro mx-auto w-75">
+        <div class="table-responsive m-2">
+            <table class="table text-center">
+                <thead class="head">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th>Número de Série</th>
+                        <th>Marca</th>
+                        <th>Potência (W)</th>
+                        <th>Tensão (V)</th>
+                        @if (isAdm)
+                        {
+                            <th>Ações</th>
+                        }
                     </tr>
-                }
-            }
-            else
-            {
-                <tr class="body">
-                    <td colspan="8">Nenhum registro encontrado</td>
-                </tr>
-            }
-        </table>
+                </thead>
+                <tbody id="estufas-tbody">
+                    @if (Model.Count > 0)
+                    {
+                        @foreach (var estufa in Model)
+                        {
+                            <tr class="body">
+                                <td>@estufa.Id</td>
+                                <td>@estufa.Id_Cliente</td>
+                                <td>@estufa.Id_Estado</td>
+                                <td>@estufa.Numero_Serie</td>
+                                <td>@estufa.Marca</td>
+                                <td>@estufa.Potencia</td>
+                                <td>@estufa.Tensao</td>
+                                @if (isAdm)
+                                {
+                                    <td>
+                                        <a asp-controller="Estufa" asp-action="Editar" asp-route-id="@estufa.Id">
+                                            <span class="bi bi-pencil"></span>
+                                        </a>
+                                        <a asp-controller="Estufa" asp-action="Deletar" asp-route-id="@estufa.Id"
+                                           onclick="return confirm('Tem certeza que deseja excluir esta estufa?');">
+                                            <span class="bi bi-x-lg"></span>
+                                        </a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr class="body">
+                            <td colspan="8">Nenhum registro encontrado</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var btnPesquisar = document.getElementById('btnPesquisar');
+        if (btnPesquisar) {
+            btnPesquisar.addEventListener('click', function (e) {
+                e.preventDefault();
+                var formData = $('#filtroEstufas').serialize();
+                $.ajax({
+                    url: '/Estufa/Pesquisar',
+                    type: 'POST',
+                    data: formData,
+                    success: function (html) {
+                        $('#estufas-tbody').html(html);
+                    }
+                });
+            });
+        }
+
+        var btnLimpar = document.getElementById('btnLimpar');
+        if (btnLimpar) {
+            btnLimpar.addEventListener('click', function (e) {
+                e.preventDefault();
+                $('#filtroEstufas')[0].reset();
+            });
+        }
+    });
+</script>

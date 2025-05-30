@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Http
+@using PBL_EC5.Controllers
+@inject IHttpContextAccessor HttpContextAccessor
+@model List<EstufaViewModel>
+@{
+    var isAdm = HelperControllers.VerificaAdm(HttpContextAccessor.HttpContext.Session);
+}
+
+@if (Model.Count > 0)
+{
+    @foreach (var estufa in Model)
+    {
+        <tr class="body">
+            <td>@estufa.Id</td>
+            <td>@estufa.Id_Cliente</td>
+            <td>@estufa.Id_Estado</td>
+            <td>@estufa.Numero_Serie</td>
+            <td>@estufa.Marca</td>
+            <td>@estufa.Potencia</td>
+            <td>@estufa.Tensao</td>
+            @if (isAdm)
+            {
+                <td>
+                    <a asp-controller="Estufa" asp-action="Editar" asp-route-id="@estufa.Id">
+                        <span class="bi bi-pencil"></span>
+                    </a>
+                    <a asp-controller="Estufa" asp-action="Deletar" asp-route-id="@estufa.Id"
+                       onclick="return confirm('Tem certeza que deseja excluir esta estufa?');">
+                        <span class="bi bi-x-lg"></span>
+                    </a>
+                </td>
+            }
+        </tr>
+    }
+}
+else
+{
+    <tr class="body">
+        <td colspan="8">Nenhum registro encontrado</td>
+    </tr>
+}
