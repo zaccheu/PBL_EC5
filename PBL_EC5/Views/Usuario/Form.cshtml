@@ -41,7 +41,7 @@
                         <label for="Email" class="control-label" style="font-weight:600">Email</label>
                         <input class="input_form form-control" type="email" Name="Email" value="@Model.Email" placeholder="pbl@gmail.com" required />
                     </div>
-                    @if (ViewBag.MeuPerfil)
+                    @if (ViewBag.HabilitarSenha == true)
                     {
                         <div class="form-group">
                             <label for="Senha" class="control-label" style="font-weight:600">Senha</label>
@@ -87,7 +87,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center align-items-center mt-4 mb-3">
-                @if (ViewBag.IsPerfil)
+                @if (ViewBag.IsPerfil == false || ViewBag.IsPerfil == null)
                 {
                     <a href="/Usuario/Index">Cancelar</a>
                     <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>

@@ -18,10 +18,9 @@
             var usuario = HelperControllers.RetornaDadosUsuario(HttpContextAccessor.HttpContext.Session);
 
             var exibirNavbar = !(ViewContext.RouteData.Values["controller"]?.ToString() == "Usuario"
-            && (ViewContext.RouteData.Values["action"]?.ToString() == "Login"
-            || ViewContext.RouteData.Values["action"]?.ToString() == "Cadastrar"));
+            && (ViewContext.RouteData.Values["action"]?.ToString() == "Login"));
         }
-        @if ((exibirNavbar || !ViewBag.EsconderNavbar) && ViewBag.Logado == true)
+        @if ((exibirNavbar || ViewBag.EsconderNavbar == false) && ViewBag.Logado == true)
         {
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom-teal border-bottom box-shadow mb-3">
                 <div class="container d-flex justify-content-between align-items-center">
@@ -93,7 +92,7 @@
 
                                 <ul class="dropdown-menu dropdown-menu-end">
                                     <li>
-                                        <a class="dropdown-item" asp-controller="Usuario" asp-action="Editar" asp-route-id="@usuario.Id" asp-route-meuPerfil="true">Ver Perfil</a>
+                                        <a class="dropdown-item" asp-controller="Usuario" asp-action="Editar" asp-route-id="@usuario.Id" asp-route-isPerfil="true">Ver Perfil</a>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>

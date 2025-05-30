@@ -16,6 +16,23 @@ namespace PBL_EC5.Controllers
             GeraProximoId = true;
         }
 
+        [HttpPost]
+        public IActionResult Pesquisar(string Nome, string Cpf, string Email, string Administrador)
+        {
+            var lista = DAO.Listagem();
+
+            if (!string.IsNullOrEmpty(Nome))
+                lista = lista.Where(u => u.Nome != null && u.Nome.Contains(Nome, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (!string.IsNullOrEmpty(Cpf))
+                lista = lista.Where(u => u.Cpf != null && u.Cpf.Contains(Cpf)).ToList();
+            if (!string.IsNullOrEmpty(Email))
+                lista = lista.Where(u => u.Email != null && u.Email.Contains(Email, StringComparison.OrdinalIgnoreCase)).ToList();
+            if (!string.IsNullOrEmpty(Administrador))
+                lista = lista.Where(u => u.Administrador.ToString() == Administrador).ToList();
+
+            return PartialView("_TabelaUsuarios", lista);
+        }
+
         public IActionResult Login()
         {
             var model = new UsuarioViewModel();
@@ -26,7 +43,7 @@ namespace PBL_EC5.Controllers
             return View("Login", model);
         }
 
-        public override IActionResult Cadastrar()
+        public IActionResult Cadastro()
         {
             ViewBag.EsconderNavbar = true;
 

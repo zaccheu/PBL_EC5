@@ -1,40 +1,89 @@
-﻿@model List<UsuarioViewModel>
+﻿@using Microsoft.AspNetCore.Http
+@using PBL_EC5.Controllers
+@inject IHttpContextAccessor HttpContextAccessor
+@model List<UsuarioViewModel>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var isAdm = HelperControllers.VerificaAdm(HttpContextAccessor.HttpContext.Session);
 }
 
+<script src="~/js/consulta.js"></script>
+<link rel="stylesheet" href="~/css/cadastro.css" />
+<script></script>
 <div class="text-center">
-    <h1 class="display-4 mb-4">Usuários</h1>
+    <h1 class="">Usuários</h1>
     <br />
 
+    <div class="formLogin paddingCadastro mx-auto w-75 mb-4">
+        <form id="filtroUsuarios" class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Nome" class="control-label">Nome</label>
+                    <input class="input_form form-control" type="text" name="Nome" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Cpf" class="control-label">CPF</label>
+                    <input class="input_form form-control" type="text" name="Cpf" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Email" class="control-label">Email</label>
+                    <input class="input_form form-control" type="email" name="Email" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Administrador" class="control-label">Administrador</label>
+                    <select class="form-control input_form" name="Administrador">
+                        <option value="">Todos</option>
+                        <option value="Nao">Não</option>
+                        <option value="Sim">Sim</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 text-center mt-3 mb-2">
+                <button type="button" class="btn btn_limpar" id="btnLimpar">LIMPAR</button>
+                <button type="button" class="btn btn_pesquisar mx-2" id="btnPesquisar">PESQUISAR</button>
+                <a class="btn btn_novo" asp-controller="Usuario" asp-action="Cadastrar">NOVO</a>
+            </div>
+        </form>
+    </div>
 
-    <div class="table-responsive m-2">
-        <table class="table text-center">
-            <thead class="head">
-                <tr>
-                    <th>Nome</th>
-                    <th>E-mail</th>
-                    <th>Administrador</th>
-                </tr>
-            </thead>
-            @if (Model.Count > 0)
-            {
-                @foreach (var usuario in Model)
-                {
-                    <tr class="body">
-                        <td>@usuario.Nome</td>
-                        <td>@usuario.Email</td>
-                        <td>@usuario.Administrador</td>
+    <div class="formLogin paddingCadastro mx-auto w-75">
+        <div class="table-responsive m-2">
+            <table class="table text-center">
+                <thead class="head">
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Administrador</th>
                     </tr>
-                }
-            }
-            else
-            {
-                <tr class="body">
-                    <td colspan="5">Nenhum registro encontrado</td>
-                </tr>
-            }
-        </table>
+                </thead>
+                <tbody id="usuarios-tbody">
+                    @if (Model.Count > 0)
+                    {
+                        @foreach (var usuario in Model)
+                        {
+                            <tr class="body">
+                                <td>@usuario.Nome</td>
+                                <td>@usuario.Email</td>
+                                <td>@usuario.Administrador</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr class="body">
+                            <td colspan="5">Nenhum registro encontrado</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
 </div>

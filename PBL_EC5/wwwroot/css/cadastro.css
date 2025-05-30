@@ -12,7 +12,7 @@
     padding: 20px 50px 5px 50px;
 }
 
-.btn_salvar {
+.btn_salvar, .btn_pesquisar, .btn_novo, .btn_limpar {
     background-color: rgb(25, 193, 159) !important;
     color: white !important;
     border: 1px solid #000 !important;
@@ -20,8 +20,9 @@
     padding: 5px 50px;
 }
 
-    .btn_salvar:hover {
+    .btn_salvar:hover, .btn_pesquisar:hover, .btn_novo:hover, .btn_limpar:hover {
         background-color: rgb(19, 145, 118) !important;
+        color: white !important;
     }
 
 .input_form {

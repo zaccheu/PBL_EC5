@@ -42,6 +42,7 @@ namespace PBL_EC5.Controllers
                 else
                     ViewBag.Logado = true;
 
+                ViewBag.HabilitarSenha = true;
                 ViewBag.Operacao = "I";
                 T model = Activator.CreateInstance<T>();
 
@@ -60,11 +61,11 @@ namespace PBL_EC5.Controllers
                 model.Id = DAO.ProximoId();
         }
 
-        public virtual IActionResult Salvar(T model, string Operacao, bool IsCadastro)
+        public virtual IActionResult Salvar(T model, string Operacao, bool? IsCadastro)
         {
             try
             {
-                if (!IsCadastro)
+                if ((bool)!IsCadastro)
                 {
                     if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
                         return RedirectToAction("Login", "Usuario");
@@ -77,7 +78,7 @@ namespace PBL_EC5.Controllers
                 {
                     ViewBag.Operacao = Operacao;
                     PreencheDadosParaView(Operacao, model);
-                    if (IsCadastro)
+                    if ((bool)IsCadastro)
                         return RedirectToAction("Login", "Usuario");
 
                     return View(NomeViewForm, model);
@@ -87,7 +88,7 @@ namespace PBL_EC5.Controllers
                     if (Operacao == "I")
                     {
                         DAO.Insert(model);
-                        if (IsCadastro)
+                        if ((bool)IsCadastro)
                             return RedirectToAction("Index", "Home");
                     }
                     else
@@ -124,7 +125,7 @@ namespace PBL_EC5.Controllers
 
                 var usuario = HelperControllers.RetornaDadosUsuario(HttpContext.Session);
                 if (usuario.Id == id)
-                    ViewBag.MeuPerfil = true;
+                    ViewBag.HabilitarSenha = true;
 
                 ViewBag.IsPerfil = isPerfil ?? false;
                 ViewBag.Operacao = "A";
