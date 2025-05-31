@@ -64,24 +64,9 @@ a {
 .pic_placeholder {
     background-color: rgb(245, 245, 245);
     width: 200px;
+    height: 200px;
     border-radius: 50%;
     border: 2px solid #66FFCC;
     object-fit: cover; /* Caso carregue uma imagem, ela cobre o espaço */
     cursor: pointer; /* Indica que pode ser clicado (para upload) */
-}
-
-.divErro {
-    width: 75%;
-    padding: 0.4rem;
-    margin-bottom: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    background-color: #ffcccc;
-    border: 1px solid red;
-    border-radius: 5px;
-    /* Alinhamento vertical e horizontal */
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }

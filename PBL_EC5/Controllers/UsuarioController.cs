@@ -129,6 +129,16 @@ namespace PBL_EC5.Controllers
             }
         }
 
+        protected override void PreencheDadosParaView(string Operacao, UsuarioViewModel model)
+        {
+            base.PreencheDadosParaView(Operacao, model);
+
+            // Buscar clientes do usuário
+            var clienteDAO = new ClienteDAO();
+            var clientesDoUsuario = clienteDAO.Listagem().Where(c => c.Id_Usuario == model.Id).ToList();
+            ViewBag.ClientesDoUsuario = clientesDoUsuario;
+        }
+
         public IActionResult LogOff()
         {
             HttpContext.Session.Clear();

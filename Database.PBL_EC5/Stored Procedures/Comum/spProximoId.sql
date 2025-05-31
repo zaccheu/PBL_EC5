@@ -1,4 +1,4 @@
-﻿create  procedure spProximoId 
+﻿create procedure [dbo].[spProximoId] 
  (@tabela  varchar(max)) 
 as 
 begin 

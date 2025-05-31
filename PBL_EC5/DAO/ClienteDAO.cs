@@ -11,14 +11,14 @@ namespace PBL_EC5.DAO
         protected override SqlParameter[] CriaParametros(ClienteViewModel cliente)
         {
             SqlParameter[] parametros = new SqlParameter[8];
-            parametros[0] = new SqlParameter("Id", cliente.Id);
-            parametros[1] = new SqlParameter("Id_Usuario", cliente.Id_Usuario ?? (object)DBNull.Value);
-            parametros[2] = new SqlParameter("Razao_Social", cliente.Razao_Social);
-            parametros[3] = new SqlParameter("CNPJ", cliente.CNPJ);
-            parametros[4] = new SqlParameter("CEP", string.IsNullOrEmpty(cliente.CEP) ? (object)DBNull.Value : cliente.CEP);
-            parametros[5] = new SqlParameter("Rua", string.IsNullOrEmpty(cliente.Rua) ? (object)DBNull.Value : cliente.Rua);
-            parametros[6] = new SqlParameter("Numero", cliente.Numero ?? (object)DBNull.Value);
-            parametros[7] = new SqlParameter("Ativo", cliente.Ativo);
+            parametros[0] = new SqlParameter("id", cliente.Id);
+            parametros[1] = new SqlParameter("id_usuario", (cliente.Id_Usuario == null || cliente.Id_Usuario == 0) ? (object)DBNull.Value : cliente.Id_Usuario);
+            parametros[2] = new SqlParameter("razao_Social", cliente.Razao_Social);
+            parametros[3] = new SqlParameter("cnpj", cliente.CNPJ);
+            parametros[4] = new SqlParameter("cep", string.IsNullOrEmpty(cliente.CEP) ? (object)DBNull.Value : cliente.CEP);
+            parametros[5] = new SqlParameter("rua", string.IsNullOrEmpty(cliente.Rua) ? (object)DBNull.Value : cliente.Rua);
+            parametros[6] = new SqlParameter("numero", cliente.Numero ?? (object)DBNull.Value);
+            parametros[7] = new SqlParameter("ativo", cliente.Ativo);
 
             return parametros;
         }
@@ -55,6 +55,15 @@ namespace PBL_EC5.DAO
         protected override void SetTabela()
         {
             Tabela = "Cliente";
+        }
+
+        public void DesvinculaClientesDoUsuario(int usuarioId)
+        {
+            SqlParameter[] parametros = {
+                new SqlParameter("@id_usuario", usuarioId)
+            };
+
+            HelperDAO.ExecutaProc("spDesvinculaCliente", parametros);
         }
     }
 }

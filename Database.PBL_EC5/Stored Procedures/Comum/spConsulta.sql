@@ -1,4 +1,4 @@
-﻿create procedure spConsulta 
+﻿create procedure [dbo].[spConsulta] 
 ( 
   @id int  , 
   @tabela varchar(max) 

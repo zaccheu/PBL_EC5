@@ -8,14 +8,14 @@ namespace PBL_EC5.Models.DAO
     {
         protected override SqlParameter[] CriaParametros(EstufaViewModel estufa)
         {
-            SqlParameter[] parametros = new SqlParameter[6];
+            SqlParameter[] parametros = new SqlParameter[7];
             parametros[0] = new SqlParameter("Id", estufa.Id);
             parametros[1] = new SqlParameter("Id_Cliente", estufa.Id_Cliente != 0 ? estufa.Id_Cliente : (object)DBNull.Value);
-            //parametros[2] = new SqlParameter("Id_Estado", estufa.Id_Estado);
             parametros[2] = new SqlParameter("Numero_Serie", estufa.Numero_Serie);
             parametros[3] = new SqlParameter("Marca", estufa.Marca);
             parametros[4] = new SqlParameter("Potencia", estufa.Potencia);
             parametros[5] = new SqlParameter("Tensao", estufa.Tensao);
+            parametros[6] = new SqlParameter("Ativo", estufa.Ativo);
 
             return parametros;
         }
@@ -27,9 +27,6 @@ namespace PBL_EC5.Models.DAO
             estufa.Id_Cliente = registro.Table.Columns.Contains("Id_Cliente") && registro["Id_Cliente"] != DBNull.Value
                 ? Convert.ToInt32(registro["Id_Cliente"])
                 : 0;
-            //estufa.Id_Estado = registro.Table.Columns.Contains("Id_Estado") && registro["Id_Estado"] != DBNull.Value
-            //    ? Convert.ToInt32(registro["Id_Estado"])
-            //    : 0;
             estufa.Numero_Serie = registro.Table.Columns.Contains("Numero_Serie") && registro["Numero_Serie"] != DBNull.Value
                 ? registro["Numero_Serie"].ToString()
                 : string.Empty;
@@ -42,6 +39,12 @@ namespace PBL_EC5.Models.DAO
             estufa.Tensao = registro.Table.Columns.Contains("Tensao") && registro["Tensao"] != DBNull.Value
                 ? Convert.ToInt32(registro["Tensao"])
                 : 0;
+            estufa.Ativo = registro.Table.Columns.Contains("Ativo") && registro["Ativo"] != DBNull.Value
+                ? Convert.ToChar(registro["Ativo"])
+                : '0';
+            estufa.NomeCliente = registro.Table.Columns.Contains("NomeCliente") && registro["NomeCliente"] != DBNull.Value
+                ? registro["NomeCliente"].ToString()
+                : string.Empty;
 
             return estufa;
         }
@@ -49,6 +52,7 @@ namespace PBL_EC5.Models.DAO
         protected override void SetTabela()
         {
             Tabela = "Estufa";
+            NomeSpListagem = "spListagemEstufaComCliente";
         }
     }
 }

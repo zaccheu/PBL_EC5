@@ -1,22 +1,25 @@
-﻿CREATE TABLE Cliente (
-    [Id] INT NOT NULL,
-    [Id_Usuario] INT NULL,
-    Razao_Social VARCHAR(255) NOT NULL,
-    [CNPJ] VARCHAR(14) NOT NULL,
-    CEP VARCHAR(9) NULL,
-    Rua VARCHAR(255) NULL,
-    Numero INT,
-    Ativo CHAR(1) NOT NULL DEFAULT '1',
-    CONSTRAINT PK_Cliente PRIMARY KEY CLUSTERED ([Id] ASC)
-) ON [PRIMARY];
+﻿CREATE TABLE [dbo].[Cliente](
+	[Id] [int] NOT NULL,
+	[Id_Usuario] [int] NULL,
+	[Razao_Social] [varchar](255) NOT NULL,
+	[CNPJ] [varchar](18) NULL,
+	[CEP] [varchar](9) NULL,
+	[Rua] [varchar](255) NULL,
+	[Numero] [int] NULL,
+	[Ativo] [char](1) NOT NULL,
+ CONSTRAINT [PK_Cliente] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
--- Adiciona a constraint de chave estrangeira
-ALTER TABLE Cliente
-ADD CONSTRAINT FK_Usuario
-FOREIGN KEY (Id_Usuario) REFERENCES [Usuario](Id);
+ALTER TABLE [dbo].[Cliente] ADD  DEFAULT ('1') FOR [Ativo]
 GO
 
--- Cria índice único no CNPJ
-CREATE UNIQUE INDEX UQ_Cliente_CNPJ ON Cliente(CNPJ);
+ALTER TABLE [dbo].[Cliente]  WITH CHECK ADD  CONSTRAINT [FK_Usuario] FOREIGN KEY([Id_Usuario])
+REFERENCES [dbo].[Usuario] ([Id])
+GO
+
+ALTER TABLE [dbo].[Cliente] CHECK CONSTRAINT [FK_Usuario]
 GO

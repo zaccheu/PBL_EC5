@@ -35,15 +35,22 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="Id_Estado" class="control-label">Estado</label>
-                    <input class="input_form form-control" type="text" name="Id_Estado" />
+                    <label for="Ativo" class="control-label">Ativo</label>
+                    <select class="form-control input_form" name="Ativo">
+                        <option value="">Todos</option>
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
+                    </select>
                 </div>
             </div>
 
             <div class="col-12 text-center mt-3 mb-2">
                 <button type="button" class="btn btn_limpar" id="btnLimpar">LIMPAR</button>
                 <button type="button" class="btn btn_pesquisar mx-2" id="btnPesquisar">PESQUISAR</button>
-                <a class="btn btn_novo" asp-controller="Estufa" asp-action="Cadastrar">NOVO</a>
+                @if (isAdm)
+                {
+                    <a class="btn btn_novo" asp-controller="Estufa" asp-action="Cadastrar">NOVO</a>
+                }
             </div>
         </form>
     </div>
@@ -55,15 +62,12 @@
                     <tr>
                         <th>ID</th>
                         <th>Cliente</th>
-                        <th>Estado</th>
                         <th>Número de Série</th>
                         <th>Marca</th>
                         <th>Potência (W)</th>
                         <th>Tensão (V)</th>
-                        @if (isAdm)
-                        {
-                            <th>Ações</th>
-                        }
+                        <th>Ativa</th>
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody id="estufas-tbody">
@@ -73,24 +77,32 @@
                         {
                             <tr class="body">
                                 <td>@estufa.Id</td>
-                                <td>@estufa.Id_Cliente</td>
-                                <td>@estufa.Id_Estado</td>
+                                <td>@estufa.NomeCliente</td>
                                 <td>@estufa.Numero_Serie</td>
                                 <td>@estufa.Marca</td>
                                 <td>@estufa.Potencia</td>
                                 <td>@estufa.Tensao</td>
-                                @if (isAdm)
-                                {
-                                    <td>
-                                        <a asp-controller="Estufa" asp-action="Editar" asp-route-id="@estufa.Id">
-                                            <span class="bi bi-pencil"></span>
+                                <td>
+                                    @if (estufa.Ativo == '1')
+                                    {
+                                        <a asp-controller="Estufa" asp-action="Visualizar" asp-route-id="@estufa.Id">
+                                            <span class="bi bi-check2-square"></span>
                                         </a>
+                                    }
+                                </td>
+                                <td>
+                                    <a asp-controller="Estufa" asp-action="Editar" asp-route-id="@estufa.Id">
+                                        <span class="bi bi-pencil"></span>
+                                    </a>
+                                    @if (isAdm)
+                                    {
                                         <a asp-controller="Estufa" asp-action="Deletar" asp-route-id="@estufa.Id"
                                            onclick="return confirm('Tem certeza que deseja excluir esta estufa?');">
                                             <span class="bi bi-x-lg"></span>
                                         </a>
-                                    </td>
-                                }
+                                    }
+                                </td>
+
                             </tr>
                         }
                     }

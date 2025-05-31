@@ -13,6 +13,10 @@
     <h2 class="mt-4 text-center">Consulta de Clientes</h2><br />
 
     <div class="formLogin paddingCadastro mx-auto w-75 mb-4">
+        @if (TempData["Erro"] != null)
+        {
+            <div class="alert alert-danger text-center">@TempData["Erro"]</div>
+        }
         <form id="filtroClientes" class="row">
             <div class="col-md-6">
                 <div class="form-group">
@@ -37,15 +41,18 @@
                     <label for="Ativo" class="control-label">Ativo</label>
                     <select class="form-control input_form" name="Ativo">
                         <option value="">Todos</option>
-                        <option value="A">Sim</option>
-                        <option value="I">Não</option>
+                        <option value="1">Sim</option>
+                        <option value="0">Não</option>
                     </select>
                 </div>
             </div>
             <div class="col-12 text-center mt-3 mb-2">
                 <button type="button" class="btn btn_limpar" id="btnLimparCliente">LIMPAR</button>
                 <button type="button" class="btn btn_pesquisar mx-2" id="btnPesquisarCliente">PESQUISAR</button>
-                <a class="btn btn_novo" asp-controller="Cliente" asp-action="Cadastrar">NOVO</a>
+                @if (isAdm)
+                {
+                    <a class="btn btn_novo" asp-controller="Cliente" asp-action="Cadastrar">NOVO</a>
+                }
             </div>
         </form>
     </div>
@@ -55,17 +62,13 @@
             <table class="table text-center">
                 <thead class="head">
                     <tr>
-                        <th>Id</th>
                         <th>Razão Social</th>
                         <th>CNPJ</th>
                         <th>CEP</th>
                         <th>Rua</th>
                         <th>Número</th>
                         <th>Ativo</th>
-                        @if (isAdm)
-                        {
-                            <th>Ações</th>
-                        }
+                        <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody id="clientes-tbody">
@@ -74,27 +77,26 @@
                         foreach (var cliente in Model)
                         {
                             <tr class="body">
-                                <td>@cliente.Id</td>
                                 <td>@cliente.Razao_Social</td>
                                 <td>@cliente.CNPJ</td>
                                 <td>@cliente.CEP</td>
                                 <td>@cliente.Rua</td>
                                 <td>@cliente.Numero</td>
                                 <td>
-                                    @Html.Raw(cliente.Ativo == 'A' ? "<span class=\"bi bi-check-lg\"></span>" : "")
+                                    @Html.Raw(cliente.Ativo == '1' ? "<span class=\"bi bi-check-lg\"></span>" : "")
                                 </td>
-                                @if (isAdm)
-                                {
-                                    <td>
-                                        <a asp-controller="Cliente" asp-action="Editar" asp-route-id="@cliente.Id">
-                                            <span class="bi bi-pencil"></span>
-                                        </a>
-                                        <a asp-controller="Cliente" asp-action="Deletar" asp-route-id="@cliente.Id"
+                                <td>
+                                    <a asp-controller="Cliente" asp-action="Editar" asp-route-id="@cliente.Id">
+                                        <span class="bi bi-pencil"></span>
+                                    </a>
+                                    @if (isAdm)
+                                    {
+                                        <a asp-controller="Cliente" asp-action="Deletar" asp-route-id="@cliente.Id" asp-route-isCliente="true"
                                            onclick="return confirm('Tem certeza que deseja deletar este cliente?');">
                                             <span class="bi bi-x-lg"></span>
                                         </a>
-                                    </td>
-                                }
+                                    }
+                                </td>
                             </tr>
                         }
                     }
@@ -112,7 +114,7 @@
 
 
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
+     document.addEventListener('DOMContentLoaded', function () {
         var btnPesquisar = document.getElementById('btnPesquisarCliente');
         if (btnPesquisar) {
             btnPesquisar.addEventListener('click', function (e) {
@@ -137,5 +139,47 @@
                 $('#filtroClientes')[0].reset();
             });
         }
+
+        // Máscara para CNPJ
+        const cnpjInput = document.querySelector("input[name='CNPJ']"); // Usando 'CNPJ' como no seu exemplo funcional
+        if (cnpjInput) {
+            cnpjInput.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+                const maxLength = 14;
+                value = value.substring(0, maxLength); // Limita ao número máximo de dígitos do CNPJ
+
+                // Formato: XX.XXX.XXX/XXXX-XX
+                if (value.length > 12) { // Para 13 ou 14 dígitos
+                    // Regex corrigido: (\d{1,2}) no final para capturar o(s) dígito(s) verificador(es)
+                    value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{1,2})/, '$1.$2.$3/$4-$5');
+                } else if (value.length > 8) { // Para 9, 10, 11 ou 12 dígitos
+                    value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{1,4})/, '$1.$2.$3/$4');
+                } else if (value.length > 5) { // Para 6, 7 ou 8 dígitos
+                    value = value.replace(/(\d{2})(\d{3})(\d{1,3})/, '$1.$2.$3');
+                } else if (value.length > 2) { // Para 3, 4 ou 5 dígitos
+                    value = value.replace(/(\d{2})(\d{1,3})/, '$1.$2');
+                }
+                // Para 1 ou 2 dígitos, não fazemos nada além de remover não-dígitos
+
+                e.target.value = value;
+            });
+        }
+
+        // Máscara para CEP
+        const cepInput = document.querySelector("input[name='CEP']");
+        if (cepInput) {
+            cepInput.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, '');
+                const maxLength = 8;
+                value = value.substring(0, maxLength);
+
+                // XXXXX-XXX
+                if (value.length > 5) {
+                    value = value.replace(/(\d{5})(\d{1,3})/, '$1-$2');
+                }
+                e.target.value = value;
+            });
+        }
+
     });
 </script>

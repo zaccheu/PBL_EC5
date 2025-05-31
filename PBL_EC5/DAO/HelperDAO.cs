@@ -36,7 +36,7 @@ namespace PBL_EC5.DAO
             }
         }
 
-        public static int ExecutaProc(string nomeSP, SqlParameter[] parametros, bool consultaUltimoIdentity = false)
+        public static void ExecutaProc(string nomeSP, SqlParameter[] parametros)
         {
             using (SqlConnection conexao = ConexaoDB.GetConexao())
             {
@@ -46,18 +46,6 @@ namespace PBL_EC5.DAO
                     if (parametros != null)
                         comando.Parameters.AddRange(parametros);
                     comando.ExecuteNonQuery();
-
-                    if (consultaUltimoIdentity)
-                    {
-                        string sql = "select isnull(@@IDENTITY,0)";
-                        comando.CommandType = CommandType.Text;
-                        comando.CommandText = sql;
-                        int pedidoId = Convert.ToInt32(comando.ExecuteScalar());
-                        conexao.Close();
-                        return pedidoId;
-                    }
-                    else
-                        return 0;
                 }
             }
         }

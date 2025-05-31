@@ -180,6 +180,7 @@ body {
     border: 1px solid rgb(0, 102, 102);
     border-radius: 50%;
     width: 40px;
+    height: 40px;
     padding: 2px;
     object-fit: cover;
     margin-left: 10px;

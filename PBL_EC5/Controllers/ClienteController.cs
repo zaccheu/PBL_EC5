@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PBL_EC5.DAO;
 using PBL_EC5.Models;
+using PBL_EC5.Models.DAO;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PBL_EC5.Controllers
@@ -12,6 +15,32 @@ namespace PBL_EC5.Controllers
         {
             DAO = new ClienteDAO();
             GeraProximoId = true;
+        }
+
+        public override IActionResult Index()
+        {
+            try
+            {
+                if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
+                    return RedirectToAction("Login", "Usuario");
+                else
+                    ViewBag.Logado = true;
+
+                var isAdm = HelperControllers.VerificaAdm(HttpContext.Session);
+                List<ClienteViewModel> lista = DAO.Listagem();
+                if (!isAdm)
+                {
+                    // Pega o id do usuário logado
+                    var usuario = HelperControllers.RetornaDadosUsuario(HttpContext.Session);
+                    lista = lista.Where(c => c.Id_Usuario == usuario.Id).ToList();
+                }
+
+                return View(NomeViewIndex, lista);
+            }
+            catch (Exception erro)
+            {
+                return View("Error", new ErrorViewModel(erro.ToString()));
+            }
         }
 
         [HttpPost]
@@ -57,6 +86,30 @@ namespace PBL_EC5.Controllers
             // Validação da Rua
             if (!string.IsNullOrEmpty(model.Rua) && model.Rua.Length > 255)
                 ModelState.AddModelError("Rua", "A Rua deve ter no máximo 255 caracteres.");
+        }
+
+        protected override void PreencheDadosParaView(string Operacao, ClienteViewModel model)
+        {
+            base.PreencheDadosParaView(Operacao, model);
+
+            //Preenche o combo de usuarios
+            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            var usuarios = usuarioDAO.Listagem();
+
+            List<SelectListItem> listaUsuario = new List<SelectListItem>();
+            listaUsuario.Add(new SelectListItem("Selecione um usuário", "0"));
+            foreach (UsuarioViewModel usuario in usuarios)
+            {
+                SelectListItem item = new SelectListItem(usuario.Nome, usuario.Id.ToString());
+                listaUsuario.Add(item);
+            }
+
+            ViewBag.Usuarios = listaUsuario;
+
+            // Buscar estufas do cliente
+            var estufaDAO = new EstufaDAO();
+            var estufasDoCliente = estufaDAO.Listagem().Where(c => c.Id_Cliente == model.Id).ToList();
+            ViewBag.EstufasDoCliente = estufasDoCliente;
         }
     }
 }

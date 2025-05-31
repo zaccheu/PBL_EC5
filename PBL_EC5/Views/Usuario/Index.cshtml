@@ -84,8 +84,8 @@
                                         <a asp-controller="Usuario" asp-action="Editar" asp-route-id="@usuario.Id">
                                             <span class="bi bi-pencil"></span>
                                         </a>
-                                        <a asp-controller="Usuario" asp-action="Deletar" asp-route-id="@usuario.Id"
-                                           onclick="return confirm('Tem certeza que deseja deletar este usuário?');">
+                                        <a asp-controller="Usuario" asp-action="Deletar" asp-route-id="@usuario.Id" asp-route-isUsuario="true"
+                                           onclick="return confirm('Tem certeza que deseja deletar este usuário? Todos os clientes sob responsabilidade dele serão desvinculados.');">
                                             <span class="bi bi-x-lg"></span>
                                         </a>
                                     </td>
@@ -106,7 +106,7 @@
 </div>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
         var btnPesquisar = document.getElementById('btnPesquisar');
         if (btnPesquisar) {
             btnPesquisar.addEventListener('click', function (e) {
@@ -131,5 +131,28 @@
                 $('#filtroUsuarios')[0].reset();
             });
         }
+
+        const cpfInput = document.querySelector("input[name='Cpf']");
+        // Verifica se o elemento foi encontrado antes de adicionar o event listener
+        if (cpfInput) {
+            cpfInput.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+                const maxLength = 11;
+                value = value.substring(0, maxLength); // Limita ao número máximo de dígitos do CPF
+
+                if (value.length > 9) { // Para 10 ou 11 dígitos
+                    // Regex corrigido: (\d{1,2}) no final para capturar o(s) dígito(s) verificador(es)
+                    value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+                } else if (value.length > 6) { // Para 7, 8 ou 9 dígitos
+                    value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+                } else if (value.length > 3) { // Para 4, 5 ou 6 dígitos
+                    value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+                }
+                // Para 1, 2 ou 3 dígitos, não fazemos nada além de remover não-dígitos e aplicar o primeiro ponto se necessário.
+
+                e.target.value = value;
+            });
+        }
+
     });
 </script>

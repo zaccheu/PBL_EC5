@@ -12,9 +12,7 @@
         <div class="formLogin paddingLogin mx-auto w-50">
             @if (!string.IsNullOrEmpty(ViewBag.Erro))
             {
-                <div class="divErro">
-                    <label class="control-label text-danger mb-0">@ViewBag.Erro</label>
-                </div>
+                <div class="alert alert-danger text-center">@ViewBag.Erro</div>
             }
             <div class="form-group px-5">
                 <div>

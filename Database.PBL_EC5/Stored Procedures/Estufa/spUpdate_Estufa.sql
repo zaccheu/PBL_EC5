@@ -4,7 +4,8 @@
     @numero_serie VARCHAR(255),
     @marca VARCHAR(255),
     @potencia FLOAT,
-    @tensao INT
+    @tensao INT,
+	@ativo CHAR(1)
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -15,7 +16,7 @@ BEGIN
         numero_serie = @numero_serie,
         marca = @marca,
         potencia = @potencia,
-        tensao = @tensao
+        tensao = @tensao,
+		ativo = @ativo
     WHERE id = @id;
 END
-GO

@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using PBL_EC5.DAO;
 using PBL_EC5.Models;
 using PBL_EC5.Models.DAO;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PBL_EC5.Controllers
 {
@@ -61,11 +63,11 @@ namespace PBL_EC5.Controllers
                 model.Id = DAO.ProximoId();
         }
 
-        public virtual IActionResult Salvar(T model, string Operacao, bool? IsCadastro)
+        public virtual IActionResult Salvar(T model, string Operacao, bool? IsCadastro, bool? IsPerfil)
         {
             try
             {
-                if ((bool)!IsCadastro)
+                if (IsCadastro == null || !IsCadastro.Value)
                 {
                     if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
                         return RedirectToAction("Login", "Usuario");
@@ -78,7 +80,7 @@ namespace PBL_EC5.Controllers
                 {
                     ViewBag.Operacao = Operacao;
                     PreencheDadosParaView(Operacao, model);
-                    if ((bool)IsCadastro)
+                    if (IsCadastro != null && IsCadastro.Value)
                         return RedirectToAction("Login", "Usuario");
 
                     return View(NomeViewForm, model);
@@ -88,13 +90,24 @@ namespace PBL_EC5.Controllers
                     if (Operacao == "I")
                     {
                         DAO.Insert(model);
-                        if ((bool)IsCadastro)
+                        if (IsCadastro != null && IsCadastro.Value)
+                        {
+                            ArmazenaDadosSessionUsuario(model);
                             return RedirectToAction("Index", "Home");
+                        }
                     }
                     else
                     {
                         DAO.Update(model);
-                        ArmazenaDadosSessionUsuario(model);
+
+                        var sessionIdString = HttpContext.Session.GetString("Id");
+                        if (int.TryParse(sessionIdString, out int sessionId) && model.Id == sessionId)
+                        {
+                            ArmazenaDadosSessionUsuario(model);
+                        }
+
+                        if (IsPerfil != null && IsPerfil.Value)
+                            return RedirectToAction("Index", "Home");
                     }
 
                     return RedirecionaParaIndex(model);
@@ -152,7 +165,7 @@ namespace PBL_EC5.Controllers
             return RedirectToAction(NomeViewIndex);
         }
 
-        public IActionResult Deletar(int id)
+        public IActionResult Deletar(int id, bool? isCliente, bool? isUsuario)
         {
             try
             {
@@ -160,6 +173,32 @@ namespace PBL_EC5.Controllers
                     return RedirectToAction("Login", "Usuario");
                 else
                     ViewBag.Logado = true;
+
+                // Se for cliente, verifica se há estufas associadas
+                if (isCliente != null && isCliente.Value)
+                {
+                    var estufaDAO = new EstufaDAO();
+                    var estufas = estufaDAO.Listagem().Where(e => e.Id_Cliente == id).ToList();
+
+                    if (estufas.Any())
+                    {
+                        TempData["Erro"] = "Não é possível deletar este cliente, pois existem estufas associadas a ele.";
+                        return RedirectToAction("Index");
+                    }
+                }
+
+                // Se for usuário, verifica se há clientes associadas. Se tiver, termina a relação de todos os clientes com o usuário
+                if (isUsuario != null && isUsuario.Value)
+                {
+                    var clienteDAO = new ClienteDAO();
+                    var clientes = clienteDAO.Listagem().Where(e => e.Id_Usuario == id).ToList();
+
+                    if (clientes.Any())
+                    {
+                        // Desvincula todos os clientes do usuário antes de deletar
+                        clienteDAO.DesvinculaClientesDoUsuario(id);
+                    }
+                }
 
                 var model = DAO.Consulta(id);
                 if (model != null)

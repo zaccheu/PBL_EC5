@@ -1,4 +1,4 @@
-﻿create procedure spDelete 
+﻿ create procedure [dbo].[spDelete] 
 ( 
   @id int  , 
   @tabela varchar(max) 
@@ -9,7 +9,4 @@ begin
    set @sql = ' delete ' + @tabela +  
        ' where id = ' + cast(@id as varchar(max)) 
    exec(@sql) 
-end
- 
- 
-
+end 

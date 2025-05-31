@@ -10,27 +10,26 @@
     foreach (var cliente in Model)
     {
         <tr class="body">
-            <td>@cliente.Id</td>
             <td>@cliente.Razao_Social</td>
             <td>@cliente.CNPJ</td>
             <td>@cliente.CEP</td>
             <td>@cliente.Rua</td>
             <td>@cliente.Numero</td>
             <td>
-                @Html.Raw(cliente.Ativo == 'A' ? "<span class=\"bi bi-check-lg\"></span>" : "")
+                @Html.Raw(cliente.Ativo == '1' ? "<span class=\"bi bi-check-lg\"></span>" : "")
             </td>
-            @if (isAdm)
-            {
-                <td>
-                    <a asp-controller="Cliente" asp-action="Editar" asp-route-id="@cliente.Id">
-                        <span class="bi bi-pencil"></span>
-                    </a>
-                    <a asp-controller="Cliente" asp-action="Deletar" asp-route-id="@cliente.Id"
+            <td>
+                <a asp-controller="Cliente" asp-action="Editar" asp-route-id="@cliente.Id">
+                    <span class="bi bi-pencil"></span>
+                </a>
+                @if (isAdm)
+                {
+                    <a asp-controller="Cliente" asp-action="Deletar" asp-route-id="@cliente.Id" asp-route-isCliente="true"
                        onclick="return confirm('Tem certeza que deseja deletar este cliente?');">
                         <span class="bi bi-x-lg"></span>
                     </a>
-                </td>
-            }
+                }
+            </td>
         </tr>
     }
 }

@@ -45,6 +45,7 @@ a {
 .pic_placeholder {
     background-color: rgb(245, 245, 245);
     width: 200px;
+    height: 200px;
     border-radius: 50%;
     border: 2px solid rgb(0, 50, 50);
     object-fit: cover; /* Caso carregue uma imagem, ela cobre o espaço */

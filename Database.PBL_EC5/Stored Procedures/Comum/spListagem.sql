@@ -1,4 +1,4 @@
-﻿create procedure spListagem 
+﻿create procedure [dbo].[spListagem] 
 ( 
    @tabela varchar(max), 
    @ordem varchar(max)) 

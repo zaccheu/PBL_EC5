@@ -1,5 +1,6 @@
 ﻿using PBL_EC5.Models;
 using PBL_EC5.Models.DAO;
+using PBL_EC5.Util;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,6 +12,9 @@ namespace PBL_EC5.DAO
     {
         protected override SqlParameter[] CriaParametros(UsuarioViewModel usuario)
         {
+            if (!string.IsNullOrEmpty(usuario.Senha))
+                usuario.Senha = Criptografia.Encrypt(usuario.Senha); // Criptografa a senha antes de salvar
+
             SqlParameter[] parametros = new SqlParameter[7];
             parametros[0] = new SqlParameter("id", usuario.Id);
             parametros[1] = new SqlParameter("nome", usuario.Nome);
@@ -37,7 +41,11 @@ namespace PBL_EC5.DAO
             usuario.Nome = registro["Nome"].ToString();
             usuario.Cpf = registro["Cpf"]?.ToString();
             usuario.Email = registro["Email"]?.ToString();
-            usuario.Senha = registro["Senha"]?.ToString();
+
+            var senhaCriptografada = registro["Senha"]?.ToString();
+            usuario.Senha = !string.IsNullOrEmpty(senhaCriptografada)
+                ? Criptografia.Decrypt(senhaCriptografada)
+                : null;
 
             if (registro["Administrador"] != DBNull.Value)
                 usuario.Administrador = (TipoAdministrador)Convert.ToChar(registro["Administrador"]);
@@ -51,13 +59,12 @@ namespace PBL_EC5.DAO
         protected override void SetTabela()
         {
             Tabela = "Usuario";
-            ChaveIdentity = true;
         }
 
         public UsuarioViewModel ConsultaLogin(UsuarioViewModel model)
         {
-            //Alterar para senha criptografada aqui
-            //model.Senha = Criptografia.Encrypt(model.Senha)
+            //Alterar para senha criptografada para procurar login
+            model.Senha = Criptografia.Encrypt(model.Senha);
 
             var p = new SqlParameter[]
             {

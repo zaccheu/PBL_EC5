@@ -18,11 +18,10 @@ namespace PBL_EC5.Models.DAO
         protected abstract SqlParameter[] CriaParametros(T model);
         protected abstract T MontaModel(DataRow registro);
         protected abstract void SetTabela();
-        protected bool ChaveIdentity { get; set; } = false;
 
-        public virtual int Insert(T model)
+        public virtual void Insert(T model)
         {
-            return HelperDAO.ExecutaProc("spInsert_" + Tabela, CriaParametros(model), ChaveIdentity);
+            HelperDAO.ExecutaProc("spInsert_" + Tabela, CriaParametros(model));
         }
 
         public virtual void Update(T model)
@@ -66,11 +65,15 @@ namespace PBL_EC5.Models.DAO
 
         public virtual List<T> Listagem()
         {
-            var p = new SqlParameter[]
+            SqlParameter[] p = null;
+            if (NomeSpListagem != "spListagemEstufaComCliente")
             {
-                new SqlParameter("Tabela", Tabela),
-                new SqlParameter("Ordem", "1")
-            };
+                p = new SqlParameter[]
+                {
+                    new SqlParameter("Tabela", Tabela),
+                    new SqlParameter("Ordem", "1")
+                };
+            }
 
             var tabela = HelperDAO.ExecutaProcSelect(NomeSpListagem, p);
 
