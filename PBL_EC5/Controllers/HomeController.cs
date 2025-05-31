@@ -34,6 +34,15 @@ namespace PBL_EC5.Controllers
 
             return View();
         }
+        public IActionResult Dashboard()
+        {
+            if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
+                return RedirectToAction("Login", "Usuario");
+            else
+                ViewBag.Logado = true;
+
+            return View();
+        }
 
         public IActionResult SobreRegressao()
         {
