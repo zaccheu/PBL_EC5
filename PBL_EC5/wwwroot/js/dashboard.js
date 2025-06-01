@@ -2,6 +2,7 @@
 
     var init = function () {
         console.log("Inicializando o dashboard...");
+
         fetchTemperatureData();
     }
 
@@ -18,12 +19,13 @@
     // Função para chamar o endpoint e exibir a data no console
     var fetchTemperatureData = function () {
 
-        console.log("Buscando dados de temperatura...");
+        var estufaId = $("#hiddenEstufaId").val();
 
         $.ajax({
             url: "/DadosEstufa/BuscarTemperatura",
-            method: "GET",
+            method: "POST",
             headers: headers,
+            body: JSON.stringify({ estufaId: estufaId }),
             dataType: "json",
             accepts: "application/json",
             success: function (response) {
@@ -53,10 +55,13 @@
 
     function sendDataToController(data) {
         $.ajax({
-            url: "/DadosEstufa/SalvarDados", // Endpoint da controller
+            url: "/DadosEstufa/SalvarDados",
             method: "POST",
             contentType: "application/json",
-            data: JSON.stringify(data),
+            data: JSON.stringify({
+                IdEstufa: parseInt($("#EstufaId").val()),
+                Dados: data
+            }),
             success: function (response) {
                 console.log("Dados enviados com sucesso:", response);
             },
@@ -64,6 +69,7 @@
                 console.error("Erro ao enviar os dados:", error);
             }
         });
+
     }
 
     return {
