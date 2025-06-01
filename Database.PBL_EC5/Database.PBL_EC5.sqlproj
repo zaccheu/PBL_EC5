@@ -62,6 +62,7 @@
     <Folder Include="Stored Procedures\Estufa" />
     <Folder Include="Stored Procedures\Cliente" />
     <Folder Include="Stored Procedures\Comum" />
+    <Folder Include="Stored Procedures\DadosEstufa" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Tables\Usuario.sql" />
@@ -80,5 +81,8 @@
     <Build Include="Stored Procedures\Usuario\spConsultaLogin.sql" />
     <Build Include="Stored Procedures\Comum\spDesvinculaCliente.sql" />
     <Build Include="Stored Procedures\Estufa\spListagemEstufaComCliente.sql" />
+    <Build Include="Tables\DadosEstufa.sql" />
+    <Build Include="Stored Procedures\DadosEstufa\spInsert_DadosEstufa.sql" />
+    <Build Include="Stored Procedures\DadosEstufa\spListagemDadosComEstufa.sql" />
   </ItemGroup>
 </Project>

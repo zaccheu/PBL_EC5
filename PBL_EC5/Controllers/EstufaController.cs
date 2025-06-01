@@ -62,9 +62,16 @@ namespace PBL_EC5.Controllers
                 else
                     ViewBag.Logado = true;
 
-                EstufaViewModel model = DAO.Consulta(id);
-                if (model == null)
+                var estufaExistente = DAO.Consulta(id);
+
+                DadosEstufaViewModel model = new DadosEstufaViewModel();
+
+                if (estufaExistente == null)
                     return View("Error", new ErrorViewModel("Estufa não encontrada."));
+                else
+                {
+                    model.Id_Estufa = id;
+                }
 
                 return View("Dashboard", model);
             }
@@ -77,7 +84,7 @@ namespace PBL_EC5.Controllers
         [HttpPost]
         public IActionResult Pesquisar(string Numero_Serie, string Marca, string Id_Cliente, string Ativo)
         {
-            var lista = DAO.Listagem(); 
+            var lista = DAO.Listagem();
 
             if (!string.IsNullOrEmpty(Numero_Serie))
                 lista = lista.Where(e => e.Numero_Serie != null && e.Numero_Serie.Contains(Numero_Serie, StringComparison.OrdinalIgnoreCase)).ToList();

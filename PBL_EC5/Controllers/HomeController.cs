@@ -41,6 +41,8 @@ namespace PBL_EC5.Controllers
             else
                 ViewBag.Logado = true;
 
+
+
             return View();
         }
 

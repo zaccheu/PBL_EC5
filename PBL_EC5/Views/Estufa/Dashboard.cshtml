@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using PBL_EC5.Controllers
 @inject IHttpContextAccessor HttpContextAccessor
-@model EstufaViewModel
+@model DadosEstufaViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var isAdm = HelperControllers.VerificaAdm(HttpContextAccessor.HttpContext.Session);
@@ -9,9 +9,17 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="~/css/cadastro.css" />
+<script src="~/js/dashboard.js"></script>
 
 <div class="text-center">
     <h2 class="mt-4 text-center">Visualização da estufa em tempo real</h2><br />
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="IdCliente" class="control-label" style="font-weight:600">Estufa relacionada</label>
+            <select asp-for="Id_Estufa"class="input_form form-control" disabled>@Model.Id_Estufa</select>
+        </div>
+    </div>
 
     <div class="formLogin paddingCadastro mx-auto w-75 mb-4">
         <div class="container mt-5">
@@ -25,21 +33,16 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/chart.js"></script>
+    <script src=https://cdn.jsdelivr.net/npm/chart.js></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script>
-        // Função init para inicializar o dashboard
-        function init() {
-            console.log("Inicializando o dashboard...");
-            fetchTemperatureData(); // Chama a função do dashboard.js
-        }
-
         // Executa a função init quando o DOM estiver pronto
         $(document).ready(function () {
-            init();
+            dashboard.init();
         });
     </script>
 }
+
 
 

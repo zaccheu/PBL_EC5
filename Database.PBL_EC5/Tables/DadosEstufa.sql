@@ -1,0 +1,13 @@
+﻿CREATE TABLE [dbo].[DadosEstufa](
+	[Id] [int] NOT NULL,
+	[Id_Estufa] [int] NOT NULL,
+	[Temperatura] [numeric](9, 2) NULL,
+	[Data] [datetime] NOT NULL,
+	[Tensao] [numeric](9, 2) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
