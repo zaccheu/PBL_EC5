@@ -4,7 +4,9 @@ BEGIN
     SET NOCOUNT ON;
 
     SELECT 
+        de.Id,
         de.Id_Estufa,
+        de.Id_Temperatura,
         de.Temperatura,
         de.Data,
         de.Tensao,

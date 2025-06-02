@@ -12,18 +12,9 @@
 <script src="~/js/dashboard.js"></script>
 
 <div class="text-center">
-    <h2 class="mt-4 text-center">Visualização da estufa em tempo real</h2><br />
+    <h2 class="mt-4 text-center">Visualização da estufa @Model.Id_Estufa em tempo real</h2><br />
 
     <input type="hidden" id="EstufaId" value="@Model.Id_Estufa" />
-
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <div class="form-group">
-            <label for="IdCliente" class="control-label" style="font-weight:600">Estufa relacionada</label>
-            <select asp-for="Id_Estufa" class="input_form form-control" value="@Model.Id_Estufa" disabled></select>
-        </div>
-    </div>
-    <div class="col-md-4"></div>
 
     <div class="formLogin paddingCadastro mx-auto w-75 mb-4">
         <div class="container mt-5">
