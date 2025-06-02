@@ -140,5 +140,29 @@ namespace PBL_EC5.Controllers
                 return StatusCode(500, $"Erro ao salvar os dados: {ex.Message}");
             }
         }
+
+        [HttpPost]
+        public async Task<IActionResult> BuscarHistorico([FromBody] FiltroHistoricoRequest filtro)
+        {
+            try
+            {
+                if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
+                    return RedirectToAction("Login", "Usuario");
+                else
+                    ViewBag.Logado = true;
+
+                DadosEstufaDAO dao = new DadosEstufaDAO();
+                var historico = await dao.BuscarHistorico(filtro);
+
+                // Retorna a lista como JSON, já no formato esperado pelo JS
+                return Json(historico);
+            }
+            catch (Exception erro)
+            {
+                return StatusCode(500, $"Erro ao buscar histórico: {erro.Message}");
+            }
+        }
+
+
     }
 }

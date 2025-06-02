@@ -7,7 +7,8 @@ namespace PBL_EC5.DAO
     {
         public static SqlConnection GetConexao()
         {
-            string connectionString = "Data Source=localhost;Initial Catalog=PBL_EC5;user id=sa; password=123456";
+            //string connectionString = "Data Source=localhost;Initial Catalog=PBL_EC5;user id=sa; password=123456";
+            string connectionString = "Data Source=tmdc1dbdv01;Initial Catalog=teste_pbl;user id=sistemas; password=sistemas";
             SqlConnection conexao = new SqlConnection(connectionString);
             conexao.Open();
             return conexao;

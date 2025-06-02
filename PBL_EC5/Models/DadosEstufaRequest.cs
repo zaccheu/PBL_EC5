@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace PBL_EC5.Models
 {
@@ -15,5 +16,12 @@ namespace PBL_EC5.Models
         public string AttrName { get; set; }
         public string AttrType { get; set; }
         public double AttrValue { get; set; }
+    }
+
+    public class FiltroHistoricoRequest
+    {
+        public int IdEstufa { get; set; }
+        public DateTime DataInicial { get; set; }
+        public DateTime DataFinal { get; set; }
     }
 }

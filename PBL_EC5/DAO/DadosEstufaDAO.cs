@@ -3,6 +3,7 @@ using PBL_EC5.Models.DAO;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace PBL_EC5.DAO
 {
@@ -62,6 +63,44 @@ namespace PBL_EC5.DAO
                 return false;
             else
                 return true;
+        }
+
+        public async Task<DadosEstufaViewModel> BuscarHistorico(FiltroHistoricoRequest dto)
+        {
+            var p = new SqlParameter[]
+            {
+               new SqlParameter("id_estufa", dto.IdEstufa),
+               new SqlParameter("dataInicial", dto.DataInicial),
+               new SqlParameter("dataFinal", dto.DataFinal)
+            };
+
+            var tabela = await Task.Run(() => HelperDAO.ExecutaProcSelect("spBuscarHistoricoDadosEstufa", p));
+            if (tabela.Rows.Count == 0)
+                return null;
+            else
+                return MontaModel(tabela.Rows[0]);
+
+            //SCRIPT SP
+//            CREATE PROCEDURE spBuscarHistoricoDadosEstufa
+//    @id_estufa INT,
+//    @dataInicial DATETIME,
+//    @dataFinal DATETIME
+//AS
+//BEGIN
+//    SELECT
+//        Id,
+//        Id_Estufa,
+//        Id_Temperatura,
+//        Temperatura,
+//        Data,
+//        Tensao
+//    FROM DadosEstufa
+//    WHERE Id_Estufa = @id_estufa
+//      AND Data >= @dataInicial
+//      AND Data <= @dataFinal
+//    ORDER BY Data
+//END
+
         }
     }
 }

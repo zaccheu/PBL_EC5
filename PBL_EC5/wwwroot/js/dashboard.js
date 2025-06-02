@@ -1,6 +1,7 @@
 ﻿var dashboard = function () {
     var listadados = []; // Armazena todos os dados recebidos
     var myChart = null;  // Referência ao gráfico Chart.js
+    var myChartHistorico = null; 
 
     var init = async function () {
         console.log("Inicializando o dashboard...");
@@ -141,6 +142,91 @@
         });
     }
 
+    //GRÁFICO HISTÓRICO
+    $("#btnBuscarHistorico").click(async function () {
+        const idEstufa = $("#EstufaId").val();
+        const dataInicial = $("#dataInicial").val();
+        const dataFinal = $("#dataFinal").val();
+
+        if (!dataInicial || !dataFinal) {
+            alert("Selecione o intervalo de datas.");
+            return;
+        }
+
+        try {
+            const registros = await buscarHistorico(idEstufa, dataInicial, dataFinal);
+            montaGraficoHistorico(registros);
+        } catch (e) {
+            alert("Erro ao buscar histórico.");
+        }
+    });
+
+    async function buscarHistorico(idEstufa, dataInicial, dataFinal) {
+        return await new Promise(function (resolve, reject) {
+            $.ajax({
+                url: "/DadosEstufa/BuscarHistorico",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    IdEstufa: idEstufa,
+                    DataInicial: dataInicial,
+                    DataFinal: dataFinal
+                }),
+                success: resolve,
+                error: reject
+            });
+        });
+    }
+
+    function montaGraficoHistorico(data) {
+        // Ordena os dados por data
+        const dadosOrdenados = data.slice().sort((a, b) => new Date(a.Data) - new Date(b.Data));
+        const labels = dadosOrdenados.map(item => {
+            const date = new Date(item.Data);
+            return date.toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        });
+        const temperaturas = dadosOrdenados.map(item => parseFloat(item.Temperatura));
+
+        // Remove gráfico anterior, se existir
+        if (myChartHistorico) {
+            myChartHistorico.destroy();
+        }
+
+        const ctx = document.getElementById('myChartHistorico').getContext('2d');
+        myChartHistorico = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Temperatura (°C) - Histórico',
+                    data: temperaturas,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    fill: true,
+                    tension: 0.1,
+                    pointRadius: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Horário'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Temperatura (°C)'
+                        },
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+    }
     return {
         init: init,
         fetchTemperatureData: fetchTemperatureData
