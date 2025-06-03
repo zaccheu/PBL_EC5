@@ -5,9 +5,9 @@
 
     var init = async function () {
         console.log("Inicializando o dashboard...");
-        await fetchTemperatureData();
         montaGrafico(listadados);
-        setInterval(fetchTemperatureData, 2000);
+        await fetchTemperatureData();
+        setInterval(fetchTemperatureData, 500);
     }
 
     const headers = {
@@ -138,27 +138,46 @@
                         beginAtZero: false
                     }
                 }
+            },
+            plugins: {
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    },
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'xy'
+                    }
+                }
             }
         });
     }
 
     //GRÁFICO HISTÓRICO
-    $("#btnBuscarHistorico").click(async function () {
-        const idEstufa = $("#EstufaId").val();
-        const dataInicial = $("#dataInicial").val();
-        const dataFinal = $("#dataFinal").val();
+    $(document).ready(function () {
+        $("#btnBuscarHistorico").click(async function () {
+            const idEstufa = $("#EstufaId").val();
+            const dataInicial = new Date($("#dataInicial").val()).toISOString();
+            const dataFinal = new Date($("#dataFinal").val()).toISOString();
 
-        if (!dataInicial || !dataFinal) {
-            alert("Selecione o intervalo de datas.");
-            return;
-        }
+            if (!dataInicial || !dataFinal) {
+                alert("Selecione o intervalo de datas.");
+                return;
+            }
 
-        try {
-            const registros = await buscarHistorico(idEstufa, dataInicial, dataFinal);
-            montaGraficoHistorico(registros);
-        } catch (e) {
-            alert("Erro ao buscar histórico.");
-        }
+            try {
+                const registros = await buscarHistorico(idEstufa, dataInicial, dataFinal);
+                montaGraficoHistorico(registros);
+            } catch (e) {
+                alert("Erro ao buscar histórico.");
+            }
+        });
     });
 
     async function buscarHistorico(idEstufa, dataInicial, dataFinal) {
@@ -168,7 +187,7 @@
                 method: "POST",
                 contentType: "application/json",
                 data: JSON.stringify({
-                    IdEstufa: idEstufa,
+                    IdEstufa: parseInt(idEstufa),
                     DataInicial: dataInicial,
                     DataFinal: dataFinal
                 }),
@@ -182,10 +201,10 @@
         // Ordena os dados por data
         const dadosOrdenados = data.slice().sort((a, b) => new Date(a.Data) - new Date(b.Data));
         const labels = dadosOrdenados.map(item => {
-            const date = new Date(item.Data);
+            const date = new Date(item.data);
             return date.toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         });
-        const temperaturas = dadosOrdenados.map(item => parseFloat(item.Temperatura));
+        const temperaturas = dadosOrdenados.map(item => parseFloat(item.temperatura));
 
         // Remove gráfico anterior, se existir
         if (myChartHistorico) {
@@ -222,6 +241,23 @@
                             text: 'Temperatura (°C)'
                         },
                         beginAtZero: false
+                    }
+                }
+            },
+            plugins: {
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    },
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'xy'
                     }
                 }
             }

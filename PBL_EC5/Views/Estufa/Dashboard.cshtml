@@ -9,47 +9,57 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="~/css/cadastro.css" />
-<script src="~/js/dashboard.js"></script>
 
 <div class="text-center">
-    <h2 class="mt-4 text-center">Visualização da estufa @Model.Id_Estufa em tempo real</h2><br />
+    <h2 class="mt-4 text-center">Visualização da estufa - Nº @Model.Id_Estufa</h2><br />
 
     <input type="hidden" id="EstufaId" value="@Model.Id_Estufa" />
 
     <div class="formLogin paddingCadastro mx-auto w-75 mb-4">
-        <div class="container mt-5">
+        <div class="container mt-3">
+            <h2 class="m-2 text-center">Tempo real</h2><br />
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <canvas id="myChart"></canvas>
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <div class="col-md-3 offset-md-3">
-                    <label for="dataInicial">Data Inicial</label>
-                    <input type="date" id="dataInicial" class="input-form form-control" />
+            @if (isAdm)
+            {
+                <div class="row m-4 pt-3" style="border-top:1px solid aqua">
+                    <h2 class="col-md-12 mt-2 mb-4 text-center">Histórico</h2><br />
+                    <div class="col-md-4">
+                        <label for="dataInicial" style="font-weight:600">Data Inicial</label>
+                        <input type="date" id="dataInicial" class="input-form form-control"
+                               value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="col-md-4">
+                        <label for="dataFinal" style="font-weight:600">Data Final</label>
+                        <input type="date" id="dataFinal" class="input-form form-control"
+                               value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-center align-items-end">
+                        <button id="btnBuscarHistorico" class="btn btn_pesquisar">Buscar</button>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    <label for="dataFinal">Data Final</label>
-                    <input type="date" id="dataFinal" class="input-form form-control" />
-                </div>
-                <div class="col-md-3 d-flex align-items-end">
-                    <button id="btnBuscarHistorico" class="btn btn_pesquisar">Buscar Histórico</button>
-                </div>
-            </div>
 
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <canvas id="myChartHistorico"></canvas>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <canvas id="myChartHistorico"></canvas>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>
 
 @section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src=https://cdn.jsdelivr.net/npm/chart.js></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+
+    <script src="~/js/dashboard.js"></script>
 
     <script>
         // Executa a função init quando o DOM estiver pronto

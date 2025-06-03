@@ -85,5 +85,6 @@
     <Build Include="Stored Procedures\DadosEstufa\spInsert_DadosEstufa.sql" />
     <Build Include="Stored Procedures\DadosEstufa\spListagemDadosComEstufa.sql" />
     <Build Include="Stored Procedures\DadosEstufa\spConsultaIdTemperatura.sql" />
+    <Build Include="Stored Procedures\DadosEstufa\spBuscarHistoricoDadosEstufa.sql" />
   </ItemGroup>
 </Project>
