@@ -85,6 +85,26 @@
                     myChart.update();
                 }
 
+                // Atualiza a cor da div de status de temperatura
+                if (listadados.length > 0) {
+                    const ultimaTemp = parseFloat(listadados[listadados.length - 1].AttrValue);
+                    const tempDiv = document.getElementById('tempStatus');
+                    tempDiv.textContent = isNaN(ultimaTemp) ? '--' : ultimaTemp + '°C';
+
+                    // Defina os limites de cor conforme sua necessidade
+                    if (isNaN(ultimaTemp)) {
+                        tempDiv.style.background = '#ccc';
+                    } else if (ultimaTemp < 18) {
+                        tempDiv.style.background = '#00bfff'; // Azul (frio)
+                    } else if (ultimaTemp < 28) {
+                        tempDiv.style.background = '#90ee90'; // Verde (confortável)
+                    } else if (ultimaTemp < 35) {
+                        tempDiv.style.background = '#ffd700'; // Amarelo (quente)
+                    } else {
+                        tempDiv.style.background = '#ff6347'; // Vermelho (muito quente)
+                    }
+                }
+
                 console.log("Dados enviados com sucesso:", response);
             },
             error: function (error) {
@@ -229,6 +249,7 @@
             }
         });
     }
+
     return {
         init: init,
         fetchTemperatureData: fetchTemperatureData
