@@ -138,23 +138,6 @@
                         beginAtZero: false
                     }
                 }
-            },
-            plugins: {
-                zoom: {
-                    pan: {
-                        enabled: true,
-                        mode: 'xy'
-                    },
-                    zoom: {
-                        wheel: {
-                            enabled: true
-                        },
-                        pinch: {
-                            enabled: true
-                        },
-                        mode: 'xy'
-                    }
-                }
             }
         });
     }
@@ -241,23 +224,6 @@
                             text: 'Temperatura (°C)'
                         },
                         beginAtZero: false
-                    }
-                }
-            },
-            plugins: {
-                zoom: {
-                    pan: {
-                        enabled: true,
-                        mode: 'xy'
-                    },
-                    zoom: {
-                        wheel: {
-                            enabled: true
-                        },
-                        pinch: {
-                            enabled: true
-                        },
-                        mode: 'xy'
                     }
                 }
             }
