@@ -1,7 +1,9 @@
 ﻿var dashboard = function () {
     var listadados = []; // Armazena todos os dados recebidos
     var myChart = null;  // Referência ao gráfico Chart.js
-    var myChartHistorico = null; 
+    var myChartHistorico = null;
+    var temperaturaAtual = null;
+    var setPoint = null;
 
     var init = async function () {
         console.log("Inicializando o dashboard...");
@@ -105,6 +107,10 @@
                     }
                 }
 
+                // Atualiza o erro estacionário
+                temperaturaAtual = parseFloat(listadados[listadados.length - 1].AttrValue);
+                atualizarErroEstacionario();
+
                 console.log("Dados enviados com sucesso:", response);
             },
             error: function (error) {
@@ -161,6 +167,30 @@
             }
         });
     }
+
+    // Função para atualizar o erro estacionário
+    function atualizarErroEstacionario() {
+        const erroDiv = document.getElementById('erroEstacionario');
+        if (erroDiv != null || erroDiv != undefined) {
+            if (setPoint !== null && temperaturaAtual !== null && !isNaN(setPoint) && !isNaN(temperaturaAtual)) {
+                const erro = setPoint - temperaturaAtual;
+                erroDiv.textContent = `${erro.toFixed(2)}`;
+            } else {
+                erroDiv.textContent = '';
+            }
+        }
+    }
+
+    // Evento para capturar mudanças no setPoint
+    document.addEventListener('DOMContentLoaded', function () {
+        const setPointInput = document.getElementById('setPointInput');
+        if (setPointInput) {
+            setPointInput.addEventListener('input', function () {
+                setPoint = parseFloat(this.value);
+                atualizarErroEstacionario();
+            });
+        }
+    });
 
     //GRÁFICO HISTÓRICO
     $(document).ready(function () {
@@ -246,7 +276,7 @@
                         beginAtZero: false
                     }
                 }
-            }
+            },
         });
     }
 
